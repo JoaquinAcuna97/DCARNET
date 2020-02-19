@@ -20,6 +20,6 @@ from django.urls import include,path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('carnets/', include('carnets.urls')),
-    url(r'^accounts/login/$', views.login, name='login'),
-    url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
+    #url(r'^accounts/login/$', views.login, name='login'),
+    #url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
 ]
