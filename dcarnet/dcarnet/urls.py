@@ -14,8 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import url,include
 from django.urls import path
+from autenticacion import views as aviews
+
+app_name = 'dcarnet'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^$',aviews.index,name='index'),
+    url(r'^special/',aviews.special,name='special'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^autenticacion/',include('autenticacion.urls')),
+    url(r'^logout/$', aviews.user_logout, name='logout'),
 ]

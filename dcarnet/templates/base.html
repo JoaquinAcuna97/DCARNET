@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html>
     <head>
         <title>Dcarnet Project</title>
@@ -15,7 +15,6 @@
 
 
         {# Custom CSS#}
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
 <body class='loader'>
 
@@ -24,8 +23,8 @@
 
 
       <ul class="nav navbar-nav">
-        <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">Dcarnet App</a></li>
-        <li><a href="{% url 'about'%}">About</a></li>
+        <li><a class='navbar-brand bigbrand' href="{% url 'index' %}">Dcarnet App</a></li>
+        <li><a href="{% url 'index'%}">Login</a></li>
         <li><a href="https://www.github.com">Github</a></li>
         <li><a href="https://www.linkedin.com">LinkedIn</a></li>
 
@@ -34,11 +33,11 @@
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
         <li>
-          <a href="{% url 'post_new' %}" >New Familiar</a>
+          <a href="{% url 'index' %}" >New Familiar</a>
         </li>
 
           {% else %}
-          <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+          <li><a class='nav navbar-right' href="{% url 'autenticacion:user_login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
         {% endif %}
 
       </ul>
@@ -51,6 +50,9 @@
                 <div class="col-md-8">
                   <div class="blog_posts">
                     {% block content %}
+
+
+
                     {% endblock %}
 
                   </div>
@@ -61,7 +63,6 @@
 
 {# SCRIPTS#}
 
-<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
 
 </body>
 </html>
