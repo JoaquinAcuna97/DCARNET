@@ -1,38 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
-<div class="container">
-  <div class="jumbotron">
+{% if user.is_authenticated %}
 
-    {% if user.is_authenticated %}
+  <nav class="navbar navbar-default techfont custom-navbar">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li><a class='navbar-brand bigbrand' href="{% url 'index' %}">Dcarnet App</a></li>
+        <li><a href="https://www.github.com">Familiar</a></li>
+        <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+      </ul>
 
-
-    <nav class="navbar navbar-default techfont custom-navbar">
-      <div class="container">
-
-        <ul class="nav navbar-nav">
-          <li><a class='navbar-brand bigbrand' href="{% url 'index' %}">Dcarnet App</a></li>
-          <li><a href="https://www.github.com">Familiar</a></li>
-          <li><a href="https://www.linkedin.com">LinkedIn</a></li>
-
-
-
-        </ul>
-
+      {% if user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
-          {% if user.is_authenticated %}
           <li>
             <!-- Log out -->
             <a href="{% url 'autenticacion:user_logout' %}">Salir</a>
           </li>
-          {% else %}
+
+       {% else %}
           <li>
             <!-- Log in -->
             <a class='nav navbar-right' href="{% url 'autenticacion:user_login' %}">
               <span class="glyphicon glyphicon-user"></span> Iniciar Sesion
             </a>
           </li>
-          {% endif %}
+      {% endif %}
+
         </ul>
       </div>
     </nav>
@@ -45,18 +40,20 @@
     {% else %}
     <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
     {% endif %}
+
+
     {% endblock %}
 
+{% else %}
+    <div class="login-page" >
+    <h2 class="titulobienvenido">Bienvenido a DCARNÉ</h2>
+    <div class="form">
+    <img src="{% static 'img/logonombre.png' %}" alt="logo" style="width: 100%">
+    <p> Inicie sesión <a href="{% url 'autenticacion:user_login' %}"> aquí </a> para continuar </p>
+    </div>
+    </div>
+{% endif %}
 
-
-    {% else %}
-    <h2>Bienvenido a DCARNET inice sesion
-      <a href="{% url 'autenticacion:user_login' %}">
-        aqui
-      </a> para continuar
-    </h2>
-    {% endif %}
-  </div>
 </div>
 
 {% endblock %}
