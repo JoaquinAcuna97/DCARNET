@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 # Create your views here.
 def index(request):
     return render(request,'autenticacion/index.html')
@@ -66,8 +66,8 @@ def register(request):
 
             # Now save model
             profile.save()
+            print('# Registration Successful!')
 
-            # Registration Successful!
             registered = True
 
         else:
@@ -81,11 +81,13 @@ def register(request):
 
     # This is the render and context dictionary to feed
     # back to the registration.html file page.
-    return render(request,'autenticacion/registration.html',
-                          {'user_form':user_form,
-                           'profile_form':profile_form,
-                           'registered':registered})
-
+    if registered:
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        return render(request,'autenticacion/registration.html',
+                              {'user_form':user_form,
+                               'profile_form':profile_form,
+                               'registered':registered})
 def user_login(request):
 
     if request.method == 'POST':
@@ -107,12 +109,13 @@ def user_login(request):
                 return HttpResponseRedirect(reverse('index'))
             else:
                 # If account is not active:
-                return HttpResponse("Cuenta Desactivada.")
+                messages.error(request, 'Cuenta Desactivada.')
+                return render(request, 'autenticacion/login.html', {})
         else:
             print("Someone tried to login and failed.")
             print("They used username: {} and password: {}".format(username,password))
-            return HttpResponse("Credeciales invalidas.")
-
+            messages.error(request, 'Credeciales invalidas.')
+            return render(request, 'autenticacion/login.html', {})
     else:
         #Nothing has been provided for username or password.
         print("#Nothing has been provided for username or password.")

@@ -17,7 +17,6 @@ class Usuarios(models.Model):
     # pip install pillow to use this!
     # Optional: pip install pillow --global-option=”build_ext” --global-option=”--disable-jpeg”
     foto_perfil = models.ImageField(upload_to='profile_pics',blank=True)
-
     def __str__(self):
         # Built-in attribute of django.contrib.auth.models.User !
         return self.user.username

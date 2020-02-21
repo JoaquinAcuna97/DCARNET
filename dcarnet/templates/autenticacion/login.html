@@ -1,22 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-  <div class="container">
-    <div class="jumbotron">
-      <h1>Porfavor Login</h1>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Porfavor inicie sesion</h2>
 
-        <form method="post" action="{% url 'autenticacion:user_login' %}">
-          {% csrf_token %}
-          {# A more "HTML" way of creating the login form#}
-          <label for="username">Nombre de Usuario:</label>
-          <input type="text" name="username" placeholder="Username">
+    <form method="post" action="{% url 'autenticacion:user_login' %}">
 
-          <label for="password">Contraseña</label>
-          <input type="password" name="password">
 
-          <input type="submit" name="" value="Login">
 
-        </form>
+      {% csrf_token %}
 
-    </div>
+
+      <label for="username">Nombre de Usuario:</label>
+      <input type="text" name="username" placeholder="Username">
+
+      <label for="password">Contraseña</label>
+      <input type="password" name="password">
+
+      <input type="submit" name="" value="Login">
+
+
+    </form>
+
+    <h4>No tiene Usuario?
+      <a href="{% url 'autenticacion:register'%}">Registarse</a>
+    </h4>
   </div>
+</div>
 {% endblock %}

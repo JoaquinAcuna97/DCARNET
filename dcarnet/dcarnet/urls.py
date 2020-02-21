@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^special/',aviews.special,name='special'),
     url(r'^admin/', admin.site.urls),
     url(r'^autenticacion/',include('autenticacion.urls')),
-    url(r'^logout/$', aviews.user_logout, name='logout'),
 ]

@@ -2,23 +2,25 @@
 {% load static %}
 
 {% block content %}
-  <div class="container">
-    <div class="jumbotron">
-      {% if registered %}
-        <h1>Gracias por registrarse!!</h1>
-      {% else %}
-        <h1>Registese  Aqui</h1>
-        <form enctype="multipart/form-data" method="POST">
-          {% csrf_token %}
-          {{ user_form.as_p }}
-          {{ profile_form.as_p }}
-          <input type="submit" name="" value="Register">
-        </form>
+<div class="container">
+  <div class="jumbotron">
+    {% if registered %}
+    <h1>Gracias por registrarse!!</h1>
+    {% else %}
+    <h1>Registese Aqui</h1>
+    <form enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      {{ user_form.as_p }}
 
-      {% endif %}
 
-    </div>
+      {{ profile_form.as_p }}
+      <input type="submit" name="" value="Register">
+    </form>
+
+    {% endif %}
 
   </div>
+
+</div>
 
 {% endblock %}
