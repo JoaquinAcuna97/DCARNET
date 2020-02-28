@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Usuarios',
+            name='Usuario',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('tipo_usuario', models.CharField(choices=[('a', 'Familiar'), ('b', 'Doctor')], max_length=1)),

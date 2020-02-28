@@ -1,7 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from autenticacion.form import UsuarioForm,PerfilUsuarioForm
-
-
 
 # Extra Imports for the Login and Logout Capabilities
 from django.contrib.auth import authenticate, login, logout
@@ -11,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.
 def index(request):
-    return render(request,'autenticacion/index.html')
+    return render(request,'index.html')
 
 @login_required
 def special(request):
@@ -102,11 +100,15 @@ def user_login(request):
         if user:
             #Check it the account is active
             if user.is_active:
-                # Log the user in.
-                login(request,user)
-                # Send the user back to some page.
-                # In this case their homepage.
-                return HttpResponseRedirect(reverse('index'))
+                if user.is_staff:
+                    print('hello admin!')
+                    return redirect('/admin/')
+                else:
+                    # Log the user in.
+                    login(request,user)
+                    # Send the user back to some page.
+                    # In this case their homepage.
+                    return HttpResponseRedirect(reverse('index'))
             else:
                 # If account is not active:
                 messages.error(request, 'Cuenta Desactivada.')

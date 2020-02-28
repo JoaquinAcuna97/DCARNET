@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Usuarios(models.Model):
+class Usuario(models.Model):
 
     # Create relationship (don't inherit from User!)
     user = models.OneToOneField(User,on_delete=models.deletion.CASCADE)
