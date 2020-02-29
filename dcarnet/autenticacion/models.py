@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.core.urlresolvers import reverse
-from django_countries.fields import CountryField
-
+#from django.core.urlresolvers import reverse
 # Create your models here.
 class Usuario(models.Model):
 
@@ -31,7 +29,7 @@ class Persona(models.Model):
     fecha_de_nacimiento = models.DateTimeField(blank=True, null=True)
     fecha_de_creacion = models.DateTimeField(default=timezone.now)
     documento_de_Identidad = models.CharField()
-    lugar_de_nacimiento = modelsCountryField()
+    lugar_de_nacimiento = models.CharField()
 
    # Add any additional attributes you want
     tipos = (
@@ -46,14 +44,30 @@ class Persona(models.Model):
         return self.nombre+' '+self.apellido
 
 
+class Control_medico():
+    Nino = models.ForeignKey(Nino, on_delete=models.CASCADE)
+    edad = models.IntegerField()
+    peso = models.FloatField()
+    talla = models.FloatField()
+    pd = models.FloatField()
+    alimentacion = models.CharField()
+    hierro = models.FloatField()
+    vit_D = models.FloatField()
+    observaciones = models.TextField()
+    presion_arterial = models.FloatField()
+    proximo_control = models.DateField()
+
+
+class Carnet():
+    #campos adicicionales: ultimo control, graficas, etc
+    control_medico = models.OneToOneField(Control_medico, on_delete=models.SET_NULL)
+
+
 class Nino(Persona):
     servicio_de_salud = models.CharField()
-    numero_de_historia_clinica =
+    Carnet = models.OneToOneField(Carnet, on_delete=models.CASCADE)
     medico_asignado = models.ForeignKey(Medico, on_delete=models.SET_NULL)
 
-class carnet():
-    nino = models.ForeignKey(Nino, on_delete=models.SET_NULL)
-    control_medico = models.OneToOneField(Control_medico, on_delete=models.SET_NULL)
 
 class Tipo_de_relacion(models.Model):
     nino = models.ForeignKey(Nino, on_delete=models.SET_NULL)
@@ -112,15 +126,4 @@ class Medico(Persona):
     tipo_especializacion = models.ChoiceField(max_length=1, choices=especializacion)
 
 
-class Control_medico()
-    Nino = models.ForeignKey(Nino, on_delete=models.CASCADE)
-    edad = models.IntegerField()
-    peso = models.FloatField()
-    talla = models.FloatField()
-    pd = models.FloatField()
-    alimentacion = models.CharField()
-    hierro = models.FloatField()
-    vit_D = models.FloatField()
-    observaciones = models.TextField()
-    presion_arterial = models.FloatField()
-    proximo_control = models.DateField()
+
