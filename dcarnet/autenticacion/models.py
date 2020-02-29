@@ -37,7 +37,7 @@ class Persona(models.Model):
     tipos = (
         ('a', 'Tutor'),
         ('b', 'Doctor'),
-        ('c', 'niño'),
+        ('c', 'Nino'),
     )
     tipo_usuario = models.CharField(max_length=1, choices=tipos)
 
@@ -46,30 +46,33 @@ class Persona(models.Model):
         return self.nombre+' '+self.apellido
 
 
-class Niño(Persona):
+class Nino(Persona):
     servicio_de_salud = models.CharField()
     numero_de_historia_clinica =
-    medico_asignado = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    medico_asignado = models.ForeignKey(Medico, on_delete=models.SET_NULL)
 
+class carnet():
+    nino = models.ForeignKey(Nino, on_delete=models.SET_NULL)
+    control_medico = models.OneToOneField(Control_medico, on_delete=models.SET_NULL)
 
 class Tipo_de_relacion(models.Model):
-    niño = models.ForeignKey(Niño, on_delete=models.CASCADE)
-    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    nino = models.ForeignKey(Nino, on_delete=models.SET_NULL)
+    tutor = models.ForeignKey(Tutor, on_delete=models.SET_NULL)
     tipo_de_relacion = models.CharField(max_length=64)
 
     def __str__(self):
-        return self.tutor+' tipo de relacion: '+self.tipo_de_relacion+self.niño
+        return 'Tutor: '+self.tutor+' tipo de relacion: '+self.tipo_de_relacion+' Niño: '+self.Nino
 
 
 class Tutor(Persona):
-    hijos = models.ManyToManyField(Niño, through='Tipo_de_relacion')
-    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
+    hijos = models.ManyToManyField(Nino, through='Tipo_de_relacion')
+    agenda = models.ForeignKey(Agenda, on_delete=models.SET_NULL)
 
 
 class Agenda(models.model):
-    medico_asignado = models.OneToOneField(Medico, on_delete=models.CASCADE)
+    medico_asignado = models.OneToOneField(Medico, on_delete=models.SET_NULL)
     fecha_control = models.DateField()
-    niño = models.ForeignKey(Niño, on_delete=models.CASCADE)
+    Nino = models.ForeignKey(Nino, on_delete=models.SET_NULL)
     tutor = models.OneToOneField(Tutor, on_delete=models.SET_NULL)
     control_medico = models.OneToOneField(Control_medico, on_delete=models.SET_NULL)
 
@@ -110,7 +113,7 @@ class Medico(Persona):
 
 
 class Control_medico()
-    niño = models.ForeignKey(Niño, on_delete=models.CASCADE)
+    Nino = models.ForeignKey(Nino, on_delete=models.CASCADE)
     edad = models.IntegerField()
     peso = models.FloatField()
     talla = models.FloatField()
@@ -121,4 +124,3 @@ class Control_medico()
     observaciones = models.TextField()
     presion_arterial = models.FloatField()
     proximo_control = models.DateField()
-
