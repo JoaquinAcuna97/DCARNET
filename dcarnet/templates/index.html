@@ -17,7 +17,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="">
                                 <img src="{% static 'iconos/hospital.png' %}">
                                 Inicio
                             </a>
@@ -34,49 +34,45 @@
                             Blog
                           </a>
                         </li>
-
-                      </ul>
-                    </div>
-                </div>
-
-                                                  <div class="inicio">
                                                   {% if user.is_authenticated %}
-
-                                                  <div>
-                                                   <form class="form-inline my-2 my-lg-0">
-                                                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                                   </form>
-                                                  </div>
-
-                                                  <div class="btn-group dropright">
-                                                  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                                                    <label id='nombre'> Usuario
-                                                          </button>
-                                                          <div class="dropdown-menu"aria-labelledby="dropdownMenuReference" style="background-color: #E7476D">
-                                                            <div class="dropdown-divider">
-                                                        <li>
-                                                        <a class="dropdown-item" href=" ">Mi perfil</a>
-
-                                                          <!-- Log out -->
-                                                          <a href="{% url 'autenticacion:user_logout' %}">Salir</a>
+                                                        <li class="nav-item">
+                                                        <a class="nav-link" href="">
+                                                          <img src="{% static 'iconos/doctor.png' %}">
+                                                          Mi perfil
+                                                        </a>
+                                                        </li>
+                                                        <!-- Log out -->
+                                                        <li class="nav-item" >
+                                                        <a  class="nav-link"  href="{% url 'autenticacion:user_logout' %}">
+                                                            <img src="{% static 'iconos/puerta.png' %}">
+                                                          Salir</a>
                                                         </li>
 
                                                      {% else %}
 
                                                        <!-- Log in -->
+                                                       <li class="nav-item" >
                                                            <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
                                                              <img src="{% static 'iconos/doctor.png' %}">
-                                                             Iniciar Sesion</a>
-
+                                                             Iniciar Sesion
+                                                           </a>
+                                                        </li>
                                                      {% endif %}
 
-                                                     </div>
-                                    </div>
+                                                  </ul>
+                                                 </div>
+
+                                                 </div>
+
+                                                 <!-- <div>
+                                                  <form class="form-inline my-2 my-lg-0">
+                                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                                  </form>
+                                                 </div> -->
                                           </nav>
 
                                 <main class="main" >
-
                                   <div class="container">
                                     <div class="form">
                                         <div class="row">
