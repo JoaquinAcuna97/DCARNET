@@ -24,15 +24,10 @@
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 200px;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-
-
-
 
 .form input {
   font-family: "Roboto", sans-serif;
@@ -66,7 +61,6 @@
 .container {
   position: relative;
   z-index: 1;
-  max-width: 300px;
   margin: 0 auto;
 }
 .container:before, .container:after {
@@ -97,8 +91,8 @@
   color: #EF3B3A;
 }
 
-body {
-  background: #76b852; /* fallback for old browsers */
+body  {
+  background: #76b852;
   background: -webkit-linear-gradient(right, #76b852, #8DC26F);
   background: -moz-linear-gradient(right, #76b852, #8DC26F);
   background: -o-linear-gradient(right, #76b852, #8DC26F);
