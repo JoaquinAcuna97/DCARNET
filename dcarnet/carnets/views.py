@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Control
+from . import models
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the App Carnets.")
+    #update and create views
 
 def controlesmedicos(request):
-    control= Control.objects.all()
-    return render(request, 'carnets/icontrolmedico.html', {'control': control})
+    #control= Control.objects.all()
+    #return render(request, 'carnets/icontrolmedico.html', {'control': control})
+    return render(request, 'carnets/agregarcontrol.html')
 
 def agregarcontrol(request):
+
     return render(request, 'carnets/agregarcontrol.html')
