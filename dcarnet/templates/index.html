@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
 <!-- The navBar -->
 <nav class="navbar navbar-dark navbar-expand-lg site-header   sticky-top py-1 bg-dark">
   <a class="navbar-brand" href="{% url 'index' %}">
@@ -10,91 +10,91 @@
     Dcarnet App
   </a>
   <!--<div class="collapse navbar-collapse" id="navbarTogglerDemo03">-->
-                <div class="container">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                                <img src="{% static 'iconos/hospital.png' %}">
-                                Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="icontrolmedico.html">
-                            <img src="{% static 'iconos/chequeo.png' %}">
-                            Controles Médicos
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">
-                            <img src="{% static 'iconos/blog.png' %}">
-                            Blog
-                          </a>
-                        </li>
-                                                  {% if user.is_authenticated %}
-                                                        <li class="nav-item">
-                                                        <a class="nav-link" href="">
-                                                          <img src="{% static 'iconos/doctor.png' %}">
-                                                          Mi perfil
-                                                        </a>
-                                                        </li>
-                                                        <!-- Log out -->
-                                                        <li class="nav-item" >
-                                                        <a  class="nav-link"  href="{% url 'autenticacion:user_logout' %}">
-                                                            <img src="{% static 'iconos/puerta.png' %}">
-                                                          Salir</a>
-                                                        </li>
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <img src="{% static 'iconos/hospital.png' %}">
+            Inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="icontrolmedico.html">
+            <img src="{% static 'iconos/chequeo.png' %}">
+            Controles Médicos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <img src="{% static 'iconos/blog.png' %}">
+            Blog
+          </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <img src="{% static 'iconos/doctor.png' %}">
+            Mi perfil
+          </a>
+        </li>
+        <!-- Log out -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
+            <img src="{% static 'iconos/puerta.png' %}">
+            Salir</a>
+        </li>
 
-                                                     {% else %}
+        {% else %}
 
-                                                       <!-- Log in -->
-                                                       <li class="nav-item" >
-                                                           <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
-                                                             <img src="{% static 'iconos/doctor.png' %}">
-                                                             Iniciar Sesion
-                                                           </a>
-                                                        </li>
-                                                     {% endif %}
+        <!-- Log in -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
+            <img src="{% static 'iconos/doctor.png' %}">
+            Iniciar Sesion
+          </a>
+        </li>
+        {% endif %}
 
-                                                  </ul>
-                                                 </div>
+      </ul>
+    </div>
 
-                                                 </div>
+  </div>
 
-                                                 <!-- <div>
-                                                  <form class="form-inline my-2 my-lg-0">
-                                                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                                  </form>
-                                                 </div> -->
-                                          </nav>
+  <!-- <div>
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+ </div> -->
+</nav>
 
-                                <main class="main" >
-                                  <div class="container">
-                                    <div class="form">
-                                        <div class="row">
-                                          <h1>DCARNET</h1>
-                                          </div>
-                                            <div class="row">
-                                            {% if user.tipo_usuario == "Doctor" %}
-                                              <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
-                                            {% else %}
-                                              <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
-                                            {% endif %}
+<main class="main">
+  <div class="container">
+    <div class="form">
+      <div class="row">
+        <h1>DCARNET</h1>
+      </div>
+      <div class="row">
+        {% if user.tipo_usuario == "Doctor" %}
+        <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
+        {% else %}
+        <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
+        {% endif %}
 
-                                          </div>
-                                    </div>
-
-
-
-                                    </main>
+      </div>
+    </div>
 
 
 
-                                          {% endblock %}
+</main>
+
+
+
+{% endblock %}
 
 
 
