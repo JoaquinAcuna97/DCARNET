@@ -84,6 +84,7 @@ def register(request):
     # This is the render and context dictionary to feed
     # back to the registration.html file page.
     if registered:
+        login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(
