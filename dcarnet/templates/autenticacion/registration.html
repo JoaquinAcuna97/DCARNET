@@ -12,8 +12,8 @@
       <div class="form">
         <form enctype="multipart/form-data" method="POST">
           {% csrf_token %}
-          {{ user_form.as_p }}
-          {{ profile_form.as_p }}
+          {{ user_form }}
+          {{ profile_form }}
           <input type="submit" name="" value="Register" class="button">
         </form>
 

@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from carnets.views import create_person
 
 # Create your views here.
 def index(request):
@@ -69,7 +70,8 @@ def register(request):
             # Now save model
             profile.save()
             print("# Registration Successful!")
-
+            print("# Creando una persona para este usuario!")
+            create_person(user)
             registered = True
 
         else:
@@ -85,6 +87,7 @@ def register(request):
     # back to the registration.html file page.
     if registered:
         return HttpResponseRedirect(reverse("index"))
+
     else:
         return render(
             request,
@@ -119,7 +122,15 @@ def user_login(request):
                     login(request, user)
                     # Send the user back to some page.
                     # In this case their homepage.
-                    return HttpResponseRedirect(reverse("index"))
+                    #     print("hello user!" + user.usuario)
+                    if user.usuario.tipo_usuario == "b":
+                        print("hello doctor!" + user.username)
+                        return redirect(reverse("index"), usuario=user.usuario)
+                    if user.usuario.tipo_usuario == "a":
+                        print("hello familiar!" + user.username)
+                        return redirect(reverse("index"), usuario=user.usuario)
+                    print("hello rare user with no type!" + user.usuario.tipo_usuario)
+                    return redirect(reverse("index"), usuario=user.usuario)
             else:
                 # If account is not active:
                 messages.error(request, "Cuenta Desactivada.")

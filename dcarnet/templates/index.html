@@ -49,10 +49,20 @@
 </nav>
   {% block cuerpo %}
     <h1>DCARNET</h1>
-    {% if user.tipo_usuario == "Doctor" %}
+    {% if user.usuario.tipo_usuario == "b" %}
       <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
+      <h2>tipo usuario: {{  user.usuario.tipo_usuario }}</h2>
+        <!-- Log in -->
     {% else %}
-      <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
+      {% if user.usuario.tipo_usuario == "a" %}
+        <!-- Log in -->
+        <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
+        <h2>tipo usuario: {{  user.usuario.usuario.tipo_usuario }}</h2>
+      {% else %}
+      <!-- Log in -->
+      <h2>Bienvenido a DCARNET Anonimo {{ user.username }}!</h2>
+      <h2>tipo usuario: {{  user.usuario.usuario.tipo_usuario }}</h2>
+      {% endif %}
     {% endif %}
   {% endblock %}
 {% endblock %}
