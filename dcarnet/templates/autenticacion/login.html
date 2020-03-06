@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="login-page">
+      <div class="form">
+
+        <img src="{% static 'img/transparent.png' %}" alt="logo" style="width: 50%">
+        <br>
+        <br>
+
+
+        <form class="login-form" method="post" action="{% url 'autenticacion:user_login' %}">
+          {% csrf_token %}
+
+
+          <label for="username">Nombre de Usuario:</label>
+          <input type="text" name="username" placeholder="Username">
+
+          <label for="password">Contraseña</label>
+          <input type="password" name="password">
+
+          <input type="submit" name="" value="Login" class="submit">
+
+
+        </form>
+
+        <p class="message">No tiene Usuario?
+          <a href="{% url 'autenticacion:register'%}">Registarse</a>
+        </p>
+      </div>
+    </div>
+
+{% endblock %}
