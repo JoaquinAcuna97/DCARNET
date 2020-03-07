@@ -10,6 +10,16 @@ class UsuarioForm(forms.ModelForm):
         model = User
         fields = ("username", "email", "password")
 
+        labels = {
+            "username": ("Usuario"),
+        }
+        help_texts = {
+            "username": ("Ingrese nombre de usuario."),
+        }
+        error_messages = {
+            "username": {"max_length": ("Ese nombre de usuario es muy largo"),},
+        }
+
 
 class PerfilUsuarioForm(forms.ModelForm):
     class Meta:
