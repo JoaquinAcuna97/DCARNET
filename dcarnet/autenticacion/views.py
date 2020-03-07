@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from autenticacion.form import UsuarioForm, PerfilUsuarioForm
+from autenticacion.form import UsuarioForm, PerfilUsuarioForm, LoginForm
 
 # Extra Imports for the Login and Logout Capabilities
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
+
+
 def index(request):
     return render(request, "index.html")
 
@@ -61,10 +63,11 @@ def register(request):
             profile.user = user
 
             # Check if they provided a profile picture
-            if "profile_pic" in request.FILES:
-                print("found it")
+
+            if "foto_perfil" in request.FILES:
+                print("Encontramos la foto")
                 # If yes, then grab it from the POST form reply
-                profile.profile_pic = request.FILES["profile_pic"]
+                profile.foto_perfil = request.FILES["foto_perfil"]
 
             # Now save model
             profile.save()
@@ -84,6 +87,7 @@ def register(request):
     # This is the render and context dictionary to feed
     # back to the registration.html file page.
     if registered:
+        login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(
@@ -100,36 +104,64 @@ def register(request):
 def user_login(request):
 
     if request.method == "POST":
-        # First get the username and password supplied
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        print("post login")
+        login_form = LoginForm(data=request.POST)
+        print("login form")
+        if login_form.is_valid():
+            print("VALID")
+            # First get the username and password supplied
+            username = request.POST.get("username")
+            password = request.POST.get("password")
 
-        # Django's built-in authentication function:
-        user = authenticate(username=username, password=password)
+            # Django's built-in authentication function:
+            user = authenticate(username=username, password=password)
 
-        # If we have a user
-        if user:
-            # Check it the account is active
-            if user.is_active:
-                if user.is_staff:
-                    print("hello admin!")
-                    return redirect("/admin/")
+            # If we have a user
+            if user:
+                messages.info(
+                    request,
+                    "Hi there! @we have a user # Checking if the account is active",
+                )
+                if user.is_active:
+                    if user.is_staff:
+                        messages.success(
+                            request, "hello admin!", extra_tags="alert alert-success"
+                        )  # <-
+                        print("hello admin!")
+                        return redirect("/admin/")
+                    else:
+                        # Log the user in.
+                        login(request, user)
+                        messages.success(request, "Hello User!")  # <-
+                        # Send the user back to some page.
+                        # In this case their homepage.
+                        return HttpResponseRedirect(reverse("index"))
                 else:
-                    # Log the user in.
-                    login(request, user)
-                    # Send the user back to some page.
-                    # In this case their homepage.
-                    return HttpResponseRedirect(reverse("index"))
+                    # If account is not active:
+                    messages.error(request, "Cuenta Desactivada.")
+                    return render(request, "autenticacion/login.html", {})
             else:
-                # If account is not active:
-                messages.error(request, "Cuenta Desactivada.")
-                return render(request, "autenticacion/login.html", {})
+                print("Someone tried to login and failed.")
+                print(
+                    "They used username: {} and password: {}".format(username, password)
+                )
+                messages.error(
+                    request, "Credeciales invalidas.", extra_tags="alert alert-danger"
+                )
+                return render(
+                    request, "autenticacion/login.html", {"login_form": login_form,},
+                )
         else:
-            print("Someone tried to login and failed.")
-            print("They used username: {} and password: {}".format(username, password))
-            messages.error(request, "Credeciales invalidas.")
-            return render(request, "autenticacion/login.html", {})
+            # One of the forms was invalid if this else gets called.
+            print("INVALID")
+            print(login_form.errors)
+            return render(
+                request, "autenticacion/login.html", {"login_form": login_form,},
+            )
+
     else:
         # Nothing has been provided for username or password.
-        print("#Nothing has been provided for username or password.")
-        return render(request, "autenticacion/login.html", {})
+        print("#Carga de login.")
+        # Was not an HTTP post so we just render the forms as blank.
+        login_form = LoginForm()
+        return render(request, "autenticacion/login.html", {"login_form": login_form})

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
@@ -7,14 +7,15 @@
     {% if registered %}
     <h1>Gracias por registrarse!!</h1>
     {% else %}
-    <div class="login-page">
-      <h1>Registrese Aquí</h1>
+    <div >
       <div class="form">
+        <h1>Registrese Aquí</h1>
         <form enctype="multipart/form-data" method="POST">
+
           {% csrf_token %}
           {{ user_form.as_p }}
           {{ profile_form.as_p }}
-          <input type="submit" name="" value="Register" class="button">
+          <input type="submit" name="" value="Registrarse" class="button">
         </form>
 
         {% endif %}
