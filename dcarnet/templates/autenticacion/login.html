@@ -1,33 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <div class="login-page">
-      <div class="form">
+<div class="login-page">
+  <div class="form">
 
-        <img src="{% static 'img/transparent.png' %}" alt="logo" style="width: 50%">
-        <br>
-        <br>
+    <img src="{% static 'img/transparent.png' %}" alt="logo" style="width: 50%">
+    <br>
+    <br>
 
+    <form class="login-form" method="post" action="{% url 'autenticacion:user_login' %}">
+      {% csrf_token %}
+      {{ login_form.as_p }}
+      <input type="submit" value="Iniciar Sesion" class="submit">
+    </form>
 
-        <form class="login-form" method="post" action="{% url 'autenticacion:user_login' %}">
-          {% csrf_token %}
+    <p class="message">No tiene Usuario?
+      <a href="{% url 'autenticacion:register'%}">Registarse</a>
+    </p>
 
-
-          <label for="username">Nombre de Usuario:</label>
-          <input type="text" name="username" placeholder="Username">
-
-          <label for="password">Contraseña</label>
-          <input type="password" name="password">
-
-          <input type="submit" name="" value="Login" class="submit">
-
-
-        </form>
-
-        <p class="message">No tiene Usuario?
-          <a href="{% url 'autenticacion:register'%}">Registarse</a>
-        </p>
-      </div>
+    {% for message in messages %}
+    <div class="alert alert-success">
+      <a class="close" href="#" data-dismiss="alert">×</a>
+      {{ message }}
     </div>
+    {% endfor %}
+
+  </div>
+</div>
 
 {% endblock %}
