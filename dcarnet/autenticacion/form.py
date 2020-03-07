@@ -77,7 +77,7 @@ class LoginForm(AuthenticationForm):
     error_messages = {
         "invalid_login": (
             "Usuario y/o Contraseña invalidas. "
-            "Recuerde que los dos campos son sensibles a mayusculas."
+            "Recuerde que los dos campos son sensibles a mayúsculas."
         ),
         "inactive": ("Cuenta Desactivada."),
     }
