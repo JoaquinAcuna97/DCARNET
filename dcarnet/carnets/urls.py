@@ -9,4 +9,6 @@ urlpatterns = [
     path("controles_medicos/", views.controlesmedicos, name="Ver_controles"),
     path("agregar_control/", views.agregarcontrol, name="Agregar_control"),
     path("Crear_Persona/",views.PersonaCreate.as_view(), name="Crear_Persona"),
+    path("Crear_Medico/",views.MedicoCreate.as_view(), name="Crear_Medico"),
+    path("Crear_Familiar/",views.FamiliarCreate.as_view(), name="Crear_Familiar"),
 ]

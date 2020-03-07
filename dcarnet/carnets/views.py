@@ -29,6 +29,17 @@ class DetailViewNino(DetailView):
         context["lista_ninos"] = models.Nino.objects.all()
         return context
 
+
 class PersonaCreate(CreateView):
     model = models.Persona
     fields = ['nombre', 'apellido', 'descripcion', 'fecha_de_nacimiento', 'fecha_de_creacion', 'documento_de_Identidad', 'lugar_de_nacimiento']
+
+
+class MedicoCreate(CreateView):
+    model = models.Medico
+    fields = ['nombre', 'apellido', 'descripcion', 'fecha_de_nacimiento', 'fecha_de_creacion', 'documento_de_Identidad', 'lugar_de_nacimiento', 'tipo_especializacion', 'fecha_de_creacion']
+
+
+class FamiliarCreate(CreateView):
+    model = models.Tutor
+    fields = ['nombre', 'apellido', 'descripcion', 'fecha_de_nacimiento', 'fecha_de_creacion', 'documento_de_Identidad', 'lugar_de_nacimiento', 'hijos', 'agenda']
