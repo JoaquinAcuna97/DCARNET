@@ -28,7 +28,7 @@ app_name = "dcarnet"
 urlpatterns = [
     url(r"^$", aviews.index, name="index"),
     url(r"^special/", aviews.special, name="special"),
-    path("carnets/", include("carnets.urls")),
+    path("carnets/", include("carnets.urls", namespace="carnets")),
     path("controlesmedicos/", include("carnets.urls")),
     path("agregarcontrol/", include("carnets.urls")),
     url(r"^admin/", admin.site.urls),

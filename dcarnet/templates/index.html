@@ -78,7 +78,7 @@
             </a>
           </li>
           <li class="nav-item disabled">
-            <a class="nav-link" href="{#persona:update_view pk=doctor#}">
+            <a class="nav-link" href="{% url 'carnets:crear_persona' %}">
               <img src="{% static 'iconos/doctor.png' %}">
               Mi perfil
             </a>
@@ -131,7 +131,7 @@
 
         <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
 
-        <img src="{% static 'img/transparent.png' %}" width="300" height="300" class="d-inline-block align-top" alt="">
+        <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
         <p>DCarné es una web que le permitirá consultar el carné
           de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
         </p>
