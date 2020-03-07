@@ -67,7 +67,7 @@ def register(request):
             if "foto_perfil" in request.FILES:
                 print("Encontramos la foto")
                 # If yes, then grab it from the POST form reply
-                profile.profile_pic = request.FILES["foto_perfil"]
+                profile.foto_perfil = request.FILES["foto_perfil"]
 
             # Now save model
             profile.save()

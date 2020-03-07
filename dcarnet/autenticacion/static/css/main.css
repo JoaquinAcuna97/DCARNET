@@ -19,12 +19,22 @@
   padding: 8% 0 0;
   margin: auto;
 }
+.form-index {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  width: auto;
+  margin: 0 auto auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 
 .form {
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: min-content;
+  width: max-content;
   margin: 0 auto auto;
   padding: 45px;
   text-align: center;
@@ -153,5 +163,5 @@ select {
 		max-width: 200px;
 		max-height:200px;
 		margin: 0 auto;
-		
+
 	}

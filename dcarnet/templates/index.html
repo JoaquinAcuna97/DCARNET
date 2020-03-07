@@ -1,118 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
-<!-- HEADER -->
-<nav class="navbar navbar-dark navbar-expand-lg site-header   sticky-top py-1 bg-dark">
-  <a class="navbar-brand" href="{% url 'index' %}">
-    <img src="{% static 'img/transparent.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-    Dcarnet App
-  </a>
-  <!--<div class="collapse navbar-collapse" id="navbarTogglerDemo03">-->
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      {% if user.is_authenticated %}
-      {#NAVBAR DE DOCTOR#}
-        {% if user.usuario.tipo_usuario == "b" %}
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link disabled" href="{#indexMedico#}">
-              <img src="{% static 'iconos/hospital.png' %}">
-              Inicio Medico
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="{#control_medico:list view#}">
-              <img src="{% static 'iconos/chequeo.png' %}">
-              Controles Médicos
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="{#ninio:list view context ninios del doctor #}">
-              <img src="{% static 'iconos/blog.png' %}">
-              Mis pacientes
-            </a>
-          </li>
-          <li class="nav-item disabled">
-            <form class="form-inline my-2 my-lg-0" action="{#ninio:list view context ninios del doctor #}">
-              <input class="form-control mr-sm-2" type="search" placeholder="Pacientes" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar en Mis pacientes</button>
-            </form>
-          </li>
-          <li class="nav-item disabled">
-            <a class="nav-link" href="{% url 'carnets:crear_persona' %}">
-              <img src="{% static 'iconos/doctor.png' %}">
-              Mi perfil
-            </a>
-          </li>
-          <!-- Log out -->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
-              <img src="{% static 'iconos/puerta.png' %}">
-              Salir</a>
-          </li>
-        </ul>
-        {% elif user.usuario.tipo_usuario == "a"  %}
-        {#NAVBAR DE FAMILIAR#}
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item disabled">
-            <a class="nav-link" href="{#IndexMadre#}">
-              <img src="{% static 'iconos/hospital.png' %}">
-              Inicio Familiar
-            </a>
-          </li>
-          <li class="nav-item disabled">
-            <a class="nav-link" href="icontrolmedico.html{#control create view#}">
-              <img src="{% static 'iconos/chequeo.png' %}">
-              Familiares
-            </a>
-          </li>
-          <li class="nav-item disabled">
-            <a class="nav-link" href="{#medico:list_view doctores de este familiar}">
-              <img src="{% static 'iconos/blog.png' %}">
-              Mis Doctores
-            </a>
-          </li>
-          <li class="nav-item disabled">
-            <a class="nav-link" href="{% url 'carnets:crear_persona' %}">
-              <img src="{% static 'iconos/doctor.png' %}">
-              Mi perfil
-            </a>
-          </li>
-          <!-- Log out -->
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
-              <img src="{% static 'iconos/puerta.png' %}">
-              Salir
-            </a>
-          </li>
-        </ul>
-        {% endif %}
-      {% else%}
-      {#NAVBAR DE no autenticado#}
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <!-- Log in -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
-            <img src="{% static 'iconos/doctor.png' %}">
-            Iniciar Sesion
-          </a>
-        </li>
-      </ul>
-      {% endif %}
-    </div>
-  </div>
-
-</nav>
-<!-- /HEADER -->
-
 <main class="main">
   <div class="container">
-    <div class="form">
+    <div class="form-index" >
       <div class="row">
         <h1>DCARNET</h1>
       </div>
@@ -121,8 +12,9 @@
         {% if user.usuario.tipo_usuario == "b" %}
 
         <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
-
+  {% comment %}
         <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
+  {% endcomment %}
         <p>DCarné es una web que le permitirá actualizar el carné
           de sus <b>Pacientes</b> para que los <b>Familiares</b> sepan la salud de sus niñ@s desde cualquier lugar y dispositivo.
         </p>
@@ -130,8 +22,9 @@
         {% elif user.usuario.tipo_usuario == "a" %}
 
         <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
-
+  {% comment %}
         <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
+  {% endcomment %}
         <p>DCarné es una web que le permitirá consultar el carné
           de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
         </p>
@@ -168,19 +61,13 @@
 </main>
 
 
-
-
-
-
-
-
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
 
-{ #Comentarios y gias aqui #}
+{#Comentarios y gias aqui #}
 {% comment %}
 
 
