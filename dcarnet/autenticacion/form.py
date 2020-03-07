@@ -6,14 +6,26 @@ from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 class UsuarioForm(forms.ModelForm):
     username = UsernameField(
+        label=("Usuario"),
         widget=forms.TextInput(
-            attrs={"class": "input", "autofocus": True, "placeholder": "Usuario"}
-        )
+            attrs={
+                "class": "input",
+                "autofocus": True,
+                "placeholder": "Ingrese nombre de usuario",
+            }
+        ),
     )
     password = forms.CharField(
+        label=("Contraseña"),
         widget=forms.PasswordInput(
-            attrs={"class": "input", "placeholder": "Contraseña"}
-        )
+            attrs={"class": "input", "placeholder": "Ingrese Contraseña"}
+        ),
+    )
+    email = forms.CharField(
+        label=("Correo Electronico"),
+        widget=forms.EmailInput(
+            attrs={"class": "input", "placeholder": "Direccion de correo Electronico"}
+        ),
     )
 
     class Meta:
@@ -30,6 +42,14 @@ class UsuarioForm(forms.ModelForm):
             "username": {"max_length": ("Ese nombre de usuario es muy largo"),},
         }
 
+    error_messages = {
+        "invalid_login": (
+            "Usuario y/o Contraseña invalidas. "
+            "Recuerde que los dos campos son sensibles a mayusculas."
+        ),
+        "inactive": ("Cuenta Desactivada."),
+    }
+
 
 class PerfilUsuarioForm(forms.ModelForm):
     class Meta:
@@ -39,26 +59,22 @@ class PerfilUsuarioForm(forms.ModelForm):
 
 class LoginForm(AuthenticationForm):
     username = UsernameField(
+        label=("Usuario"),
         widget=forms.TextInput(
             attrs={
                 "class": "input",
                 "autofocus": True,
-                "placeholder": "Usuario",
-                "label": "Usuario",
+                "placeholder": "Ingrese nombre de usuario",
             }
-        )
+        ),
     )
     password = forms.CharField(
+        label=("Contraseña"),
         widget=forms.PasswordInput(
-            attrs={
-                "class": "input",
-                "placeholder": "Contraseña",
-                "label": "Contraseña",
-            }
-        )
+            attrs={"class": "input", "placeholder": "Ingrese Contraseña"}
+        ),
     )
     error_messages = {
-        "username": {"max_length": ("Ese nombre de usuario es muy largo"),},
         "invalid_login": (
             "Usuario y/o Contraseña invalidas. "
             "Recuerde que los dos campos son sensibles a mayusculas."

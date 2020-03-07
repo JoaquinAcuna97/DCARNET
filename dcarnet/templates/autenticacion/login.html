@@ -1,13 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load static %}
-{% block content %}
+
+{% block body %}
+
 <div class="login-page">
   <div class="form">
-
-    <img src="{% static 'img/transparent.png' %}" alt="logo" style="width: 50%">
-    <br>
-    <br>
-
     <form class="login-form" method="post" action="{% url 'autenticacion:user_login' %}">
       {% csrf_token %}
       {{ login_form.as_p }}
@@ -24,7 +21,6 @@
       {{ message }}
     </div>
     {% endfor %}
-
   </div>
 </div>
 

@@ -24,17 +24,21 @@
   position: relative;
   z-index: 1;
   background: #FFFFFF;
-  max-width: 360px;
-  margin: 0 auto 200px;
+  max-width: min-content;
+  margin: 0 auto auto;
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-
+.form input:hover {
+    background:#cecece;
+}
 
 
 .form input {
+  border: 1px solid #ced4da!important;
+  border-radius: .25rem;
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -52,6 +56,7 @@
   background: #43A047;
 }
 .form .message {
+  min-width: 300px;
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
@@ -107,6 +112,9 @@ body  {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+p {
+  font-size: 2rem;
+}
 
 .submit {
   font-family: "Roboto", sans-serif;
@@ -121,3 +129,29 @@ body  {
   transition: all 0.3 ease;
   cursor: pointer;
 }
+
+.errorlist li{
+  font-size: 1.5rem;
+  color: #fff!important;
+  padding:1rem!important;
+  margin-bottom:5rem !important;
+  background-color: #dc3545!important;
+  border-radius:30px!important;
+}
+.h1{
+  font-weight: 600;
+}
+select {
+    min-width:265px;
+    min-height: 45px;
+    border-width: 3px;
+    border-color: rgba(50, 50, 50, 0.14);
+    margin: 10px 10px 10px 0px;
+}
+
+.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		
+	}

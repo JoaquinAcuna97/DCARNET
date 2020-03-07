@@ -16,21 +16,23 @@ Including another URLconf
 
 from django.contrib import admin
 from django.conf.urls.static import static
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.conf import settings
 from django.urls import path, include
 from autenticacion import views as aviews
 from . import views
 
 
-app_name = 'dcarnet'
+app_name = "dcarnet"
 
 urlpatterns = [
-    url(r'^$',aviews.index,name='index'),
-    url(r'^special/',aviews.special,name='special'),
-    path('carnets/', include('carnets.urls')),
-    path('controlesmedicos/', include('carnets.urls')),
-    path('agregarcontrol/', include('carnets.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^autenticacion/',include('autenticacion.urls')),
+    url(r"^$", aviews.index, name="index"),
+    url(r"^special/", aviews.special, name="special"),
+    path("carnets/", include("carnets.urls")),
+    path("controlesmedicos/", include("carnets.urls")),
+    path("agregarcontrol/", include("carnets.urls")),
+    url(r"^admin/", admin.site.urls),
+    url(r"^autenticacion/", include("autenticacion.urls")),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

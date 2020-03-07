@@ -63,10 +63,11 @@ def register(request):
             profile.user = user
 
             # Check if they provided a profile picture
-            if "profile_pic" in request.FILES:
-                print("found it")
+
+            if "foto_perfil" in request.FILES:
+                print("Encontramos la foto")
                 # If yes, then grab it from the POST form reply
-                profile.profile_pic = request.FILES["profile_pic"]
+                profile.profile_pic = request.FILES["foto_perfil"]
 
             # Now save model
             profile.save()
@@ -160,7 +161,7 @@ def user_login(request):
 
     else:
         # Nothing has been provided for username or password.
-        print("#Nothing has been provided for username or password.")
+        print("#Carga de login.")
         # Was not an HTTP post so we just render the forms as blank.
         login_form = LoginForm()
         return render(request, "autenticacion/login.html", {"login_form": login_form})
