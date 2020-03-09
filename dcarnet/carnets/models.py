@@ -3,7 +3,7 @@ from autenticacion import models as authmodels
 from django.utils import timezone
 
 
-class Persona(authmodels.Usuario):
+class Persona(models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
     descripcion = models.TextField()
@@ -22,6 +22,9 @@ class Persona(authmodels.Usuario):
 
     def __str__(self):
         return self.nombre + " " + self.apellido
+
+    def get_absolute_url(self):
+        return reverse("persona-detail", kwargs={"pk": self.pk})
 
 
 class Medico(Persona):
@@ -55,7 +58,7 @@ class Medico(Persona):
         ("Reum.", "Reumatología"),
         ("Toxi.", "Toxicología"),
     )
-
+    usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
     tipo_especializacion = models.CharField(max_length=11, choices=especializacion)
     fecha_de_creacion = timezone.now()
 
@@ -108,6 +111,7 @@ class Agenda(models.Model):
 class Tutor(Persona):
     hijos = models.ManyToManyField(Nino, through="Tipo_de_tutor")
     agenda = models.ForeignKey(Agenda, blank=True, null=True, on_delete=models.SET_NULL)
+    usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
 
 
 class Tipo_de_tutor(models.Model):

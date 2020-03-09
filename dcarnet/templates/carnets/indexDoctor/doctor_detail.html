@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block body %}
+  <h2>Doctor {{ user.username }}!</h2>
+  {{ medico.nombre}}
+  {{ medico.apellido }}
+  {{ medico.descripcion }}
+  {{ medico.fecha_de_nacimiento }}
+  {{ medico.lugar_de_nacimiento }}
+  {{ medico.documento_de_Identidad }}
+  {{ medico.tipo_especializacion }}
+{% endblock %}
