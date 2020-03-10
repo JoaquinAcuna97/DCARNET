@@ -102,6 +102,7 @@ class PerfilFamiliarView(DetailView):
 
 class FamiliarCreate(CreateView):
     model = models.Tutor
+    template_name = "carnets/indexFamiliar/tutor_form.html"
     fields = [
         "nombre",
         "apellido",
