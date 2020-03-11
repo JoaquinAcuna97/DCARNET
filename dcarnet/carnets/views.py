@@ -1,6 +1,7 @@
 from django.views.generic.edit import CreateView
 from django.shortcuts import render
 from django.views.generic import DetailView
+from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from . import models
@@ -132,8 +133,19 @@ class PerfilNinoView(DetailView):
         return contex
 
 
+class NinoListView(ListView):
+
+    model = models.Nino
+    paginate_by = 100  # if pagination is desired
+    template_name = "carnets/indexNino/nino_list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ninos_list'] = models.Nino.objects.all()
+        return context
+
+
 class NinoCreate(CreateView):
-    model = models.Tutor
+    model = models.Nino
     template_name = "carnets/indexNino/nino_form.html"
     fields = [
         "nombre",
@@ -142,7 +154,6 @@ class NinoCreate(CreateView):
         "documento_de_Identidad",
         "lugar_de_nacimiento",
         "servicio_de_salud",
-        "carnet",
         "medico_asignado",
     ]
 
@@ -192,9 +203,4 @@ class Control_medicoCreate(CreateView):
         "observaciones",
         "presion_arterial",
         "proximo_control",
-        "fecha_de_creacion",
     ]
-
-    def form_valid(self, form):
-        form.instance.usuario = self.request.user.usuario
-        return super(Control_medicoCreate, self).form_valid(form)

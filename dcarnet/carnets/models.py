@@ -97,6 +97,9 @@ class Nino(Persona):
         Medico, blank=True, null=True, on_delete=models.SET_NULL
     )
 
+    def get_absolute_url(self):
+        return reverse("carnets:detail_nino", kwargs={"pk": self.pk})
+
 
 class Agenda(models.Model):
     medico_asignado = models.OneToOneField(

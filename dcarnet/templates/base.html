@@ -51,7 +51,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="{#ninio:list view context ninios del doctor #}">
+              <a class="nav-link disabled" href="{% url 'carnets:nino_list' %}">
                 <img src="{% static 'iconos/blog.png' %}">
                 Mis pacientes
               </a>
@@ -79,9 +79,9 @@
               </a>
             </li>
             <li class="nav-item disabled">
-              <a class="nav-link" href="icontrolmedico.html{#control create view#}">
+              <a class="nav-link" href="{% url 'carnets:nino_list' %}">
                 <img src="{% static 'iconos/chequeo.png' %}">
-                Familiares
+                Mis niños
               </a>
             </li>
             <li class="nav-item disabled">

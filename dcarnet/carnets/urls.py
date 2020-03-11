@@ -26,6 +26,7 @@ urlpatterns = [
         views.PerfilNinoView.as_view(),
         name="detail_nino",
     ),
+    path('list_nino', views.NinoListView.as_view(), name='nino_list'),
     path("Crear_Nino/", views.NinoCreate.as_view(), name="crear_nino"),
     path(
         "detail_Control_medico/<int:pk>/",

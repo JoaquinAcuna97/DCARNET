@@ -2,10 +2,28 @@
 {% block body %}
 <h1> Ninos </h1>
 <ul>
-{% for Nino in object_list %}
-    <li>{{ article.pub_date|date }} - {{ article.headline }}</li>
+{% for nino in ninos_list %}
+
+    <li>
+      <ul>
+      <li>{{ nino.nombre }}</li>
+      <li>{{ nino.apellido }}</li>
+      <li>{{ nino.descripcion }}</li>
+      <li>{{ nino.fecha_de_nacimiento }}</li>
+      <li>{{ nino.lugar_de_nacimiento }}</li>
+      <li>{{ nino.documento_de_Identidad }}</li>
+      <li>{{ nino.servicio_de_salud }}</li>
+      <li>{{ nino.carnet }}</li>
+      <li>{{ nino.medico_asignado }}</li>
+      </ul>
+      <a class="btn" href="{% url 'carnets:detail_nino' pk=nino.pk %}"><i class="icon-edit"></i> Edit</a>
+    </li>
+
 {% empty %}
     <li> Aún no hay ninos. </li>
 {% endfor %}
 </ul>
+<a href="{% url 'carnets:crear_nino' %}">
+   <button type="button" class="btn btn-success">Agregar nuevo niño</button>
+</a>
 {% endblock %}
