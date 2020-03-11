@@ -3,6 +3,7 @@ from autenticacion import models as authmodels
 from django.utils import timezone
 from django.urls import reverse
 
+
 class Persona(models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
@@ -60,7 +61,7 @@ class Medico(Persona):
     fecha_de_creacion = timezone.now()
 
     def get_absolute_url(self):
-        return reverse("detail_medico", kwargs={"pk": self.pk})
+        return reverse("carnets:detail_medico", kwargs={"pk": self.pk})
 
 
 class Control_medico(models.Model):
@@ -114,7 +115,7 @@ class Tutor(Persona):
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse("detail_familiar", kwargs={"pk": self.pk})
+        return reverse("carnets:detail_familiar", kwargs={"pk": self.pk})
 
 
 class Tipo_de_tutor(models.Model):
