@@ -58,6 +58,7 @@ class PerfilMedicoView(DetailView):
 
 class MedicoCreate(CreateView):
     model = models.Medico
+    template_name = "carnets/indexDoctor/medico_form.html"
     fields = [
         "nombre",
         "apellido",
@@ -65,7 +66,6 @@ class MedicoCreate(CreateView):
         "documento_de_Identidad",
         "lugar_de_nacimiento",
         "tipo_especializacion",
-        "fecha_de_creacion",
     ]
 
     def form_valid(self, form):
@@ -109,8 +109,6 @@ class FamiliarCreate(CreateView):
         "fecha_de_nacimiento",
         "documento_de_Identidad",
         "lugar_de_nacimiento",
-        "hijos",
-        "agenda",
     ]
 
     def form_valid(self, form):

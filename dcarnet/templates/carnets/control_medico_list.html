@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block body %}
+<h1> Controles medicos </h1>
+<ul>
+{% for Control_medico in object_list %}
+    <li>{{ }} - {{  }}</li>
+{% empty %}
+    <li> Aún no hay controles medicos. </li>
+{% endfor %}
+</ul>
+{% endblock %}
