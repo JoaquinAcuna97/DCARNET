@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block body %}
+<h1> Ninos </h1>
+<ul>
+{% for Nino in object_list %}
+    <li>{{ article.pub_date|date }} - {{ article.headline }}</li>
+{% empty %}
+    <li> Aún no hay ninos. </li>
+{% endfor %}
+</ul>
+{% endblock %}

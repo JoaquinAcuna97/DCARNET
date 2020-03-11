@@ -1,6 +1,7 @@
 from django.db import models
 from autenticacion import models as authmodels
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Persona(models.Model):
@@ -22,9 +23,6 @@ class Persona(models.Model):
 
     def __str__(self):
         return self.nombre + " " + self.apellido
-
-    def get_absolute_url(self):
-        return reverse("persona-detail", kwargs={"pk": self.pk})
 
 
 class Medico(Persona):
@@ -61,6 +59,9 @@ class Medico(Persona):
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
     tipo_especializacion = models.CharField(max_length=11, choices=especializacion)
     fecha_de_creacion = timezone.now()
+
+    def get_absolute_url(self):
+        return reverse("carnets:detail_medico", kwargs={"pk": self.pk})
 
 
 class Control_medico(models.Model):
@@ -109,9 +110,12 @@ class Agenda(models.Model):
 
 
 class Tutor(Persona):
-    hijos = models.ManyToManyField(Nino, through="Tipo_de_tutor")
+    hijos = models.ManyToManyField(Nino, blank=True, null=True, through="Tipo_de_tutor")
     agenda = models.ForeignKey(Agenda, blank=True, null=True, on_delete=models.SET_NULL)
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("carnets:detail_familiar", kwargs={"pk": self.pk})
 
 
 class Tipo_de_tutor(models.Model):
