@@ -6,17 +6,19 @@
 
     <li>
       <ul>
-      <li>{{ nino.nombre }}</li>
-      <li>{{ nino.apellido }}</li>
-      <li>{{ nino.descripcion }}</li>
-      <li>{{ nino.fecha_de_nacimiento }}</li>
-      <li>{{ nino.lugar_de_nacimiento }}</li>
-      <li>{{ nino.documento_de_Identidad }}</li>
-      <li>{{ nino.servicio_de_salud }}</li>
-      <li>{{ nino.carnet }}</li>
-      <li>{{ nino.medico_asignado }}</li>
+      <img style='border-radius: 50%;' src="{{ nino.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
+        <li>{{ nino.nombre }}</li>
+        <li>{{ nino.apellido }}</li>
+        <li>{{ nino.descripcion }}</li>
+        <li>{{ nino.fecha_de_nacimiento }}</li>
+        <li>{{ nino.lugar_de_nacimiento }}</li>
+        <li>{{ nino.documento_de_Identidad }}</li>
+        <li>{{ nino.servicio_de_salud }}</li>
+        <li>{{ nino.carnet }}</li>
+        <li>{{ nino.medico_asignado }}</li>
       </ul>
-      <a class="btn" href="{% url 'carnets:detail_nino' pk=nino.pk %}"><i class="icon-edit"></i> Edit</a>
+      <button class="btn btn-default">  <a class="btn" href="{% url 'carnets:detail_nino' pk=nino.pk %}"> Ver carnet Salud</a><i class="glyphicon glyphicon-pencil"></i></button>
+    {#podria ser la detail view de control medico pero por ahora muestra nino#}
     </li>
 
 {% empty %}
