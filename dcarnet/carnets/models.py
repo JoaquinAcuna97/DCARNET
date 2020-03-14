@@ -1,9 +1,10 @@
 from django.db import models
 from autenticacion import models as authmodels
 from django.utils import timezone
+from django.urls import reverse
 
 
-class Persona(authmodels.Usuario):
+class Persona(models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
     descripcion = models.TextField()
@@ -55,9 +56,12 @@ class Medico(Persona):
         ("Reum.", "Reumatología"),
         ("Toxi.", "Toxicología"),
     )
-
+    usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
     tipo_especializacion = models.CharField(max_length=11, choices=especializacion)
     fecha_de_creacion = timezone.now()
+
+    def get_absolute_url(self):
+        return reverse("carnets:detail_medico", kwargs={"pk": self.pk})
 
 
 class Control_medico(models.Model):
@@ -93,6 +97,9 @@ class Nino(Persona):
         Medico, blank=True, null=True, on_delete=models.SET_NULL
     )
 
+    def get_absolute_url(self):
+        return reverse("carnets:detail_nino", kwargs={"pk": self.pk})
+
 
 class Agenda(models.Model):
     medico_asignado = models.OneToOneField(
@@ -106,8 +113,12 @@ class Agenda(models.Model):
 
 
 class Tutor(Persona):
-    hijos = models.ManyToManyField(Nino, through="Tipo_de_tutor")
+    hijos = models.ManyToManyField(Nino, blank=True, null=True, through="Tipo_de_tutor")
     agenda = models.ForeignKey(Agenda, blank=True, null=True, on_delete=models.SET_NULL)
+    usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("carnets:detail_familiar", kwargs={"pk": self.pk})
 
 
 class Tipo_de_tutor(models.Model):
