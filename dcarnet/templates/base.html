@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Dcarnet Project</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+  <!-- Nuestro CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+
+  {# MEDIUM STYLE EDITOR#}
+  <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+  <!-- HEADER -->
+  <nav class="navbar navbar-dark navbar-expand-lg site-header   sticky-top py-1 bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">
+      <img src="{% static 'img/transparent.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+      Dcarnet App
+    </a>
+    <!--<div class="collapse navbar-collapse" id="navbarTogglerDemo03">-->
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if user.is_authenticated %}
+        {#NAVBAR DE DOCTOR#}
+          {% if user.usuario.tipo_usuario == "b" %}
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link disabled" href="{#indexMedico#}">
+                <img src="{% static 'iconos/hospital.png' %}">
+                Inicio Medico
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="{#control_medico:list view#}">
+                <img src="{% static 'iconos/chequeo.png' %}">
+                Controles Médicos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="{#ninio:list view context ninios del doctor #}">
+                <img src="{% static 'iconos/blog.png' %}">
+                Mis pacientes
+              </a>
+            </li>
+            <li class="nav-item disabled" >
+              <a class="nav-link" href="{% url 'carnets:crear_persona' %}">
+                <img src="{% static 'iconos/doctor.png' %}">
+                Mi perfil
+              </a>
+            </li>
+            <!-- Log out -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
+                <img src="{% static 'iconos/puerta.png' %}">
+                Salir</a>
+            </li>
+          </ul>
+          {% elif user.usuario.tipo_usuario == "a"  %}
+          {#NAVBAR DE FAMILIAR#}
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item disabled">
+              <a class="nav-link" href="{#IndexMadre#}">
+                <img src="{% static 'iconos/hospital.png' %}">
+                Inicio Familiar
+              </a>
+            </li>
+            <li class="nav-item disabled">
+              <a class="nav-link" href="icontrolmedico.html{#control create view#}">
+                <img src="{% static 'iconos/chequeo.png' %}">
+                Familiares
+              </a>
+            </li>
+            <li class="nav-item disabled">
+              <a class="nav-link" href="{#medico:list_view doctores de este familiar}">
+                <img src="{% static 'iconos/blog.png' %}">
+                Mis Doctores
+              </a>
+            </li>
+            <li class="nav-item disabled">
+              <a class="nav-link" href="{% url 'carnets:crear_persona' %}">
+                <img src="{% static 'iconos/doctor.png' %}">
+                Mi perfil
+              </a>
+            </li>
+            <!-- Log out -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
+                <img src="{% static 'iconos/puerta.png' %}">
+                Salir
+              </a>
+            </li>
+          </ul>
+          {% endif %}
+        {% else%}
+        {#NAVBAR DE no autenticado#}
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <!-- Log in -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
+              <img src="{% static 'iconos/doctor.png' %}">
+              Iniciar Sesion
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+
+  </nav>
+  <!-- /HEADER -->
+
+
+          {% block content %}
+
+
+
+          {% endblock %}
+
+
+
+
+  {% if messages %}
+      {% for message in messages %}
+          <div class="alert {{ message.tags }} alert-dismissible " role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+</body>
+
+</html>

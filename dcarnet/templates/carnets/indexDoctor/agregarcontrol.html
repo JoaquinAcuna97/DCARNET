@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+  <body>
+    <h1> Agregar nuevo control médico: </h1>
+    <form class="" action="icontrolmedico.html" method="post">
+    <div class="form-group">
+    Edad: <input type="number" name="edad" value="">
+    </div>
+    <div class="form-group">
+    Peso: <input type="number" name="peso" value="">
+    </div>
+    <div class="form-group">
+    Talla: <input type="number" name="talla" value="">
+    </div>
+    <div class="form-group">
+    Proximo Control: <input type="date" name="" value="">
+    </div>
+    <div class="form-group">
+    PD: <input type="number" name="pd" value="">
+    </div>
+    <div class="form-group">
+    Hierro: <input type="number" name="hierro" value="">
+    </div>
+    Observaciones:
+    <div class="form-group">
+    <textarea name="obs" rows="8" cols="80"></textarea>
+    </div>
+
+    <button type="submit" name="button">Guardar</button>
+    </form>
+  </body>
+  {% endblock %}

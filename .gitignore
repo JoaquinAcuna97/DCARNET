@@ -9,9 +9,11 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+.idea/
 develop-eggs/
 dist/
 downloads/
+virtualDcarnetEnviroment/
 eggs/
 .eggs/
 lib/

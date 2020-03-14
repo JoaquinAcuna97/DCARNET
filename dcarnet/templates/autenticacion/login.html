@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div >
+  <div class="form">
+    <form class="login-form" method="post" action="{% url 'autenticacion:user_login' %}">
+      {% csrf_token %}
+      {{ login_form.as_p }}
+      <input type="submit" value="Iniciar Sesion" class="submit">
+    </form>
+
+    <p class="message">No tiene Usuario?
+      <a href="{% url 'autenticacion:register'%}">Registarse</a>
+    </p>
+
+    {% for message in messages %}
+    <div class="alert alert-success">
+      <a class="close" href="#" data-dismiss="alert">×</a>
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
