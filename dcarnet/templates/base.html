@@ -52,10 +52,14 @@
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="{% url 'carnets:nino_list' %}">
-                <img src="{% static 'iconos/blog.png' %}">
+              <img src="{% static 'iconos/familia.png' %}">
                 Mis pacientes
               </a>
             </li>
+
+          </ul>
+
+            <ul class="nav navbar-nav navbar-right">
             <li class="nav-item disabled" >
               <a class="nav-link" href="{% url 'carnets:detail_medico' pk=user.pk %}">
                 <img src="{% static 'iconos/doctor.png' %}">
@@ -69,6 +73,9 @@
                 Salir</a>
             </li>
           </ul>
+
+
+
           {% elif user.usuario.tipo_usuario == "a"  %}
           {#NAVBAR DE FAMILIAR#}
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -80,19 +87,22 @@
             </li>
             <li class="nav-item disabled">
               <a class="nav-link" href="{% url 'carnets:nino_list' %}">
-                <img src="{% static 'iconos/chequeo.png' %}">
+                <img src="{% static 'iconos/familia.png' %}">
                 Mis niños
               </a>
             </li>
             <li class="nav-item disabled">
               <a class="nav-link" href="{#medico:list_view doctores de este familiar}">
-                <img src="{% static 'iconos/blog.png' %}">
+                <img src="{% static 'iconos/doctor.png' %}">
                 Mis Doctores
               </a>
             </li>
+          </ul>
+
+            <ul class="nav navbar-nav navbar-right ">
             <li class="nav-item disabled">
               <a class="nav-link" href="{% url 'carnets:detail_familiar' pk=user.pk%}">
-                <img src="{% static 'iconos/doctor.png' %}">
+                <img src="{% static 'iconos/usuario.png' %}">
                 Mi perfil
               </a>
             </li>
@@ -104,19 +114,27 @@
               </a>
             </li>
           </ul>
+
+
+
           {% endif %}
         {% else%}
         {#NAVBAR DE no autenticado#}
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+
+        <ul class="nav navbar-nav navbar-right ">
           <!-- Log in -->
           <li class="nav-item">
             <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
-              <img src="{% static 'iconos/doctor.png' %}">
+              <img src="{% static 'iconos/usuario.png' %}">
               Iniciar Sesion
             </a>
           </li>
         </ul>
         {% endif %}
+
+
+
       </div>
     </div>
 
