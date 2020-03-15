@@ -1,14 +1,52 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
+{% block content %}
+  <div class="form-index" >
+    <div class="container">
+      <div class="row">
 
-{% block body %}
-<img style='border-radius: 50%;' src="{{ nino.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
-{{ nino.nombre }}
-{{ nino.apellido }}
-{{ nino.descripcion }}
-{{ nino.fecha_de_nacimiento }}
-{{ nino.lugar_de_nacimiento }}
-{{ nino.documento_de_Identidad }}
-{{ nino.servicio_de_salud }}
-{{ nino.carnet }}
-{{ nino.medico_asignado }}
-{% endblock %}
+
+        <div class="container mt-5">
+          <div class="text-center p-4">
+              <h2> {{ nino.nombre }} {{ nino.apellido }} </h2>
+          </div>
+          <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;"  src="{{ nino.foto_perfil.url }}"  alt="">
+
+          <hr class="my-3">
+          <dl>
+              <dt>Fecha de Nacimiento</dt>
+              <dd><p</p> {{ nino.fecha_de_nacimiento }} </dd>
+
+              <dt>Lugar de Nacimiento</dt>
+              <dd><p> {{ nino.lugar_de_nacimiento }} </p></dd>
+
+              <dt>Documento de Identidad</dt>
+              <dd><p>{{ nino.documento_de_Identidad }}</p></dd>
+
+              <dt>Servicio de Salud</dt>
+              <dd><p>{{ nino.servicio_de_salud }}</p> </dd>
+
+              <dt>Médico Asignado</dt>
+                <dd><p>{{ nino.medico_asignado }}</p> </dd>
+
+              <dt>Carnet</dt>
+              <dd><p>  {{ nino.carnet }}</p> </dd>
+            </dl>
+
+
+
+
+        </div>
+        </div>
+        </div>
+
+                <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+                    <button class="btn btn-success">  Volver   </button>
+                 </a>
+
+
+
+    </div>
+
+
+
+  {% endblock %}
