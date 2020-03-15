@@ -17,21 +17,16 @@
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm custom-card">
               <img class="bd-placeholder-img card-img-top"  style="height: 225px; width: 100%; display: block;" src="{{ nino.foto_perfil.url }}"  alt="">
-
-
                     <h2 class="m-3"> {{ nino.nombre }} {{ nino.apellido }} </h2>
                     <div class="card-body">
-                  <p class="card-text">
-                      {{ nino.descripcion }}
-                      {{ nino.fecha_de_nacimiento }}
-                      {{ nino.lugar_de_nacimiento }}
-                      {{ nino.documento_de_Identidad }}
-                      {{ nino.servicio_de_salud }}
-                      {{ nino.carnet }}
-                      {{ nino.medico_asignado }}
-                      </p>
-                    </div>
-
+                          <p class="card-text">
+                              {{ nino.fecha_de_nacimiento }}
+                              {{ nino.lugar_de_nacimiento }}
+                              {{ nino.documento_de_Identidad }}
+                              {{ nino.servicio_de_salud }}
+                              {{ nino.medico_asignado }}
+                              </p>
+                            </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_nino' pk=nino.pk %}"><i class="icon-edit"></i> View</a>
