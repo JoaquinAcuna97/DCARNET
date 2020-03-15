@@ -120,12 +120,12 @@ def user_login(request):
             if user:
                 messages.info(
                     request,
-                    "Hi there! @we have a user # Checking if the account is active",
+                    "",
                 )
                 if user.is_active:
                     if user.is_staff:
                         messages.success(
-                            request, "hello admin!", extra_tags="alert alert-success"
+                            request, "", extra_tags="alert alert-success"
                         )  # <-
                         print("hello admin!")
                         return redirect("/admin/")

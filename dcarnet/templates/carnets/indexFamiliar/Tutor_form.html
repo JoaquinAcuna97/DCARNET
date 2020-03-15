@@ -1,7 +1,16 @@
-{% extends "index.html" %}
-{% block body %}
-<form class="form" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Guardar">
-</form>
+{% extends "base.html" %}
+{% block content %}
+<main class="main">
+  <div class="container">
+    <div class="form-index" >
+      <div class="row">
+        <h1 class="display-4">Mi Perfil</h1>
+      </div>
+      <div class="row">
+
+  <form class="form" method="post">{% csrf_token %}
+
+      {{ form.as_p }}
+      <input type="submit" value="Guardar">
+  </form>
 {% endblock %}

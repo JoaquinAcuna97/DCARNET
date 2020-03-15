@@ -38,19 +38,19 @@
         {#NAVBAR DE DOCTOR#}
           {% if user.usuario.tipo_usuario == "b" %}
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item disabled">
+            <li class="">
               <a class="nav-link disabled" href="{#indexMedico#}">
                 <img src="{% static 'iconos/hospital.png' %}">
                 Inicio Medico
               </a>
             </li>
-            <li class="nav-item disabled">
+            <li class="">
               <a class="nav-link disabled" href="{#control_medico:list view#}">
                 <img src="{% static 'iconos/chequeo.png' %}">
                 Controles Médicos
               </a>
             </li>
-            <li class="nav-item">
+            <li class=" ">
               <a class="nav-link" href="{% url 'carnets:nino_list' %}">
               <img src="{% static 'iconos/familia.png' %}">
                 Mis pacientes
@@ -60,14 +60,14 @@
           </ul>
 
             <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item" >
+            <li class=" " >
               <a class="nav-link" href="{% url 'carnets:detail_medico' pk=user.pk %}">
                 <img src="{% static 'iconos/doctor.png' %}">
                 Mi perfil
               </a>
             </li>
             <!-- Log out -->
-            <li class="nav-item">
+            <li class=" ">
               <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
                 <img src="{% static 'iconos/puerta.png' %}">
                 Salir</a>
@@ -79,19 +79,19 @@
           {% elif user.usuario.tipo_usuario == "a"  %}
           {#NAVBAR DE FAMILIAR#}
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item disabled">
+            <li class="">
               <a class="nav-link disabled" href="{#IndexMadre#}">
                 <img src="{% static 'iconos/hospital.png' %}">
                 Inicio Familiar
               </a>
             </li>
-            <li class="nav-item">
+            <li class="">
               <a class="nav-link" href="{% url 'carnets:nino_list' %}">
                 <img src="{% static 'iconos/familia.png' %}">
                 Mis niños
               </a>
             </li>
-            <li class="nav-item disabled">
+            <li class="">
               <a class="nav-link disabled" href="{#medico:list_view doctores de este familiar}">
                 <img src="{% static 'iconos/doctor.png' %}">
                 Mis Doctores
@@ -100,14 +100,14 @@
           </ul>
 
             <ul class="nav navbar-nav navbar-right ">
-            <li class="nav-item">
+            <li class="">
               <a class="nav-link" href="{% url 'carnets:detail_familiar' pk=user.pk%}">
                 <img src="{% static 'iconos/usuario.png' %}">
                 Mi perfil
               </a>
             </li>
             <!-- Log out -->
-            <li class="nav-item">
+            <li class="">
               <a class="nav-link" href="{% url 'autenticacion:user_logout' %}">
                 <img src="{% static 'iconos/puerta.png' %}">
                 Salir
@@ -124,7 +124,7 @@
 
         <ul class="nav navbar-nav navbar-right ">
           <!-- Log in -->
-          <li class="nav-item">
+          <li class="">
             <a class="nav-link" href="{% url 'autenticacion:user_login' %}">
               <img src="{% static 'iconos/usuario.png' %}">
               Iniciar Sesion
