@@ -154,9 +154,14 @@ class NinoCreate(CreateView):
         "lugar_de_nacimiento",
         "servicio_de_salud",
         "medico_asignado",
+        "foto_perfil",
     ]
 
     def form_valid(self, form):
+        if "foto_perfil" in self.request.FILES:
+            print("Encontramos la foto")
+            # If yes, then grab it from the POST form reply
+            form.instance.foto_perfil = self.request.FILES["foto_perfil"]
         form.instance.usuario = self.request.user.usuario
         return super(NinoCreate, self).form_valid(form)
 

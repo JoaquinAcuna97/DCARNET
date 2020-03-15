@@ -96,6 +96,7 @@ class Nino(Persona):
     medico_asignado = models.ForeignKey(
         Medico, blank=True, null=True, on_delete=models.SET_NULL
     )
+    foto_perfil = models.ImageField(upload_to="profile_pics", blank=True)
 
     def get_absolute_url(self):
         return reverse("carnets:detail_nino", kwargs={"pk": self.pk})
