@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 
 <div class="form-index" >
@@ -30,8 +31,8 @@
                                       <td><span>{{ control_medico.observaciones }} </span></td>
                                       <td><span>
                                       <div class="btn-group">
-                                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_Control_medico' pk=control_medico.pk %}"><i class="icon-edit"></i> Ver </a>
-                                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_Control_medico' pk=control_medico.pk  %}"><i class="icon-edit"></i> Editar </a>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_Control_medico' pk=control_medico.pk %}"><i class="icon-edit"></i> <img src="{% static 'iconos/ojo.png' %}"> </a>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_Control_medico' pk=control_medico.pk  %}"><i class="icon-edit"></i> <img src="{% static 'iconos/editar.png' %}"> </a>
                                       </div>
                                       </span></td>
                                      </tr>
