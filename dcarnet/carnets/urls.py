@@ -7,8 +7,6 @@ app_name = "carnets"
 
 urlpatterns = [
     url(r"^autenticacion/", include("autenticacion.urls")),
-    path("controles_medicos/", views.controlesmedicos, name="Ver_controles"),
-    path("agregar_control/", views.agregarcontrol, name="Agregar_control"),
     path(
         "detail_Medico/<int:pk>/",
         views.PerfilMedicoView.as_view(),
@@ -26,12 +24,15 @@ urlpatterns = [
     path("Crear_Nino/", views.NinoCreate.as_view(), name="crear_nino"),
     path(
         "detail_Control_medico/<int:pk>/",
-        views.PerfilControl_medicoView.as_view(),
-        name="detail_control_medico",
+        views.Perfil_Control_medico_View.as_view(),
+        name="detail_Control_medico",
     ),
     path(
         "Crear_Control_medico/",
         views.Control_medicoCreate.as_view(),
         name="crear_control_medico",
     ),
+
+    path("list_control_medico", views.Control_medico_List_View.as_view(), name="control_list"),
+
 ]

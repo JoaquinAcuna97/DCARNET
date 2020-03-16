@@ -42,15 +42,20 @@
 
 
                                 {% empty %}
-                                    <li> Aún no hay ninos. </li>
+                                    <li> Aún no hay ninos.
+
+                                     </li>
+
+
+
                                 {% endfor %}
 
 
-                  <a href="{% url 'carnets:crear_nino' %}">
-                     <button type="button" class="btn btn-default btn-lg">Agregar nuevo niño</button>
-                  </a>
 
 </div>
+<a href="{% url 'carnets:crear_nino' %}">
+   <button type="button" class="btn btn-default btn-lg">Agregar nuevo niño</button>
+</a>
 
 
 </div>

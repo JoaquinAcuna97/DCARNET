@@ -2,10 +2,15 @@
 {% block body %}
 <h1> Controles medicos </h1>
 <ul>
-{% for Control_medico in object_list %}
-    <li>{{ }} - {{  }}</li>
+{% for  control_medico in object_list %}
+    <li> {{ control_medico.edad }} </li>
 {% empty %}
     <li> Aún no hay controles medicos. </li>
 {% endfor %}
 </ul>
+
+<a href="{% url 'carnets:crear_control_medico' %}">
+   <button type="button" class="btn btn-default btn-lg">Agregar nuevo control medico</button>
+</a>
+
 {% endblock %}
