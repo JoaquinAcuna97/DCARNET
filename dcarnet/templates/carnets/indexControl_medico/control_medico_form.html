@@ -10,6 +10,13 @@
   <h1 class="display-4"> Agregar Control Médico </h1>
     {{ form.as_p }}
     <input type="submit" value="Guardar" class="btn btn-default btn-lg">
+
+
+    <a href="{% url 'carnets:control_list' %}">
+       Volver
+    </a>
+
+
 </form>
 
 </div>
