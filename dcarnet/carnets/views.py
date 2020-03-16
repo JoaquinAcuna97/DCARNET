@@ -224,7 +224,7 @@ class Control_medicoCreate(CreateView):
 class Control_medico_List_View(ListView):
 
     model = models.Control_medico
-    paginate_by = 10  # if pagination is desired
+    paginate_by = 20  # if pagination is desired
     template_name = "carnets/indexControl_medico/control_medico_list.html"
 
     def get_context_data(self, **kwargs):
