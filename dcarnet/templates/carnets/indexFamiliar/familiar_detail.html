@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% block content %}
+  <div class="form-index" >
+    <div class="container">
+      <div class="row">
+<h1 class="display-2"> Mi Perfil </h1>
+
+        <div class="container mt-5">
+          <div class="text-center p-4">
+              <h2 class="display-3"> {{ tutor.nombre }} {{ tutor.apellido }} </h2>
+          </div>
+
+          <hr class="my-3">
+          <dl>
+              <dt>Fecha de Nacimiento</dt>
+              <dd><p</p> {{ tutor.fecha_de_nacimiento }} </dd>
+
+              <dt>Lugar de Nacimiento</dt>
+              <dd><p> {{ tutor.lugar_de_nacimiento }} </p></dd>
+
+              <dt>Documento de Identidad</dt>
+              <dd><p>{{ tutor.documento_de_Identidad }} </p></dd>
+        </div>
+        </div>
+
+                        <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+                            <button class="btn btn-success">  Ver mis Niños   </button>
+                         </a>
+
+        </div>
+    </div>
+  {% endblock %}

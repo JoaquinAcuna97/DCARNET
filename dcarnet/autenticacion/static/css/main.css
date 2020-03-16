@@ -165,3 +165,24 @@ select {
 		margin: 0 auto;
 
 	}
+.nav-link.disabled{
+  cursor: not-allowed !important;
+}
+.nav-item.disabled:hover{
+    background: none;
+}
+.nav-item:hover{
+  background: rgba(255,255,255,.5);
+}
+.nav-item{
+  font-size: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-radius: .25rem;
+  border: 0.5px solid gray;
+}
+
+.navbar-brand{
+  font-size: 3rem !important;
+  font-weight:bold !important;
+}
