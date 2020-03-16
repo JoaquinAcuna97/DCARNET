@@ -14,7 +14,13 @@
                                 <h1 class="display-1">Mis Niños</h1>
                       </div>
 
+                      <a href="{% url 'carnets:crear_nino' %}">
+                         <button type="button" class="btn btn-default btn-lg"> <img src="{% static 'iconos/mas.png' %}" > Agregar nuevo niño</button>
+                      </a>
+                      <hr>
+
                     <div class="row">
+
 
                             {% for nino in ninos_list %}
                             <div class="col-md-4">
@@ -28,7 +34,7 @@
                                               </div>
                                     <div class="d-flex justify-content-between align-items-center">
                                       <div class="btn-group">
-                                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_nino' pk=nino.pk %}"><i class="icon-edit"></i> <img src="{% static 'iconos/ojo.png' %}"></a>
+                                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_nino' pk=nino.pk %}"><i class="icon-edit"></i> <img src="{% static 'iconos/ojo.png' %}"> </a>
                                         <a class="btn btn-sm btn-outline-secondary" href="{% url 'carnets:detail_nino' pk=nino.pk %}"><i class="icon-edit"></i> <img src="{% static 'iconos/editar.png' %}"> </a>
 
                                       </div>
@@ -53,9 +59,7 @@
 
 
 </div>
-<a href="{% url 'carnets:crear_nino' %}">
-   <button type="button" class="btn btn-default btn-lg">Agregar nuevo niño</button>
-</a>
+
 
 
 </div>

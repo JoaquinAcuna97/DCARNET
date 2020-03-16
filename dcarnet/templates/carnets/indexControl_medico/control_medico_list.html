@@ -2,11 +2,25 @@
 {% load static %}
 {% block content %}
 
-<div class="form-index" >
+
         <main role="main">
-              <div class="container">
-                    <h1> Controles médicos </h1>
-                      <h2 class="mb-3">Información de los controles médicos</h2>
+          <div class="form-index" >
+            <div class="container">
+
+              <div class="text-center p-4">
+                <h1> Controles médicos </h1>
+                  <h2 class="mb-3">Información de los controles médicos</h2>
+                </div>
+
+
+            <a href="{% url 'carnets:crear_control_medico' %}">
+               <button type="button" class="btn btn-default btn-lg"> <img src="{% static 'iconos/mas.png' %}" > Agregar nuevo control medico</button>
+            </a>
+
+            <hr>
+
+
+                <div class="row">
                            <table  style="width: 100%;" class="table table-striped" >
                                <thead class="thead-dark">
                                  <tr>
@@ -47,9 +61,7 @@
 
 
 
-                    <a href="{% url 'carnets:crear_control_medico' %}">
-                       <button type="button" class="btn btn-default btn-lg">Agregar nuevo control medico</button>
-                    </a>
+
 
 
                     <a type="button" href="{% url 'carnets:nino_list' %}">
