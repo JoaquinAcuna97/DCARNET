@@ -119,8 +119,7 @@ def user_login(request):
             # If we have a user
             if user:
                 messages.info(
-                    request,
-                    "",
+                    request, "",
                 )
                 if user.is_active:
                     if user.is_staff:
