@@ -6,19 +6,9 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from . import models
 from django.urls import reverse
+from django import forms
 
 # update and create views
-
-
-def controlesmedicos(request):
-    # control= Control.objects.all()
-    # return render(request, 'carnets/icontrolmedico.html', {'control': control})
-    return render(request, "carnets/agregarcontrol.html")
-
-
-def agregarcontrol(request):
-
-    return render(request, "carnets/agregarcontrol.html")
 
 
 class PerfilMedicoView(DetailView):
@@ -166,7 +156,7 @@ class NinoCreate(CreateView):
         return super(NinoCreate, self).form_valid(form)
 
 
-class PerfilControl_medicoView(DetailView):
+class Perfil_Control_medico_View(DetailView):
     model = models.Control_medico
     context_object_name = "perfil_control_medico"
     template_name = "carnets/indexControl_medico/control_medico_detail.html"
@@ -194,19 +184,50 @@ class PerfilControl_medicoView(DetailView):
         context["control_medico"] = Control_medico.objects.get(self.object)
         return contex
 
+class Control_medico_form(forms.ModelForm):
+    class Meta:
+       model = models.Control_medico
+       fields = [
+           "edad",
+           "peso",
+           "talla",
+           "pd",
+           "alimentacion",
+           "hierro",
+           "vit_D",
+           "observaciones",
+           "presion_arterial",
+           "proximo_control",
+       ]
+
+
+    def _init_(self, *args, **kwargs):
+       nino = kwargs.pop('nino')
+       super(Control_medico_form, self)._init_(*args, **kwargs)
+       self.fields['carnet'].queryset = Folder.objects.filter(carnet =nino.carnet)
 
 class Control_medicoCreate(CreateView):
     model = models.Control_medico
+    form_class = Control_medico_form
     template_name = "carnets/indexControl_medico/control_medico_form.html"
-    fields = [
-        "edad",
-        "peso",
-        "talla",
-        "pd",
-        "alimentacion",
-        "hierro",
-        "vit_D",
-        "observaciones",
-        "presion_arterial",
-        "proximo_control",
-    ]
+
+
+    def form_valid(self, form):
+        if "foto_perfil" in self.request.FILES:
+            print("Encontramos la foto")
+            # If yes, then grab it from the POST form reply
+            form.instance.foto_perfil = self.request.FILES["foto_perfil"]
+            form.instance.usuario = self.request.user.usuario
+        return super().form_valid(form)
+
+
+class Control_medico_List_View(ListView):
+
+    model = models.Control_medico
+    paginate_by = 20  # if pagination is desired
+    template_name = "carnets/indexControl_medico/control_medico_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["Control_medico_list"] = models.Control_medico.objects.all()
+        return context

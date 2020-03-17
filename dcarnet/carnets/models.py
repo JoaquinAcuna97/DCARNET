@@ -2,6 +2,7 @@ from django.db import models
 from autenticacion import models as authmodels
 from django.utils import timezone
 from django.urls import reverse
+from django import forms
 
 
 class Persona(models.Model):
@@ -78,7 +79,10 @@ class Control_medico(models.Model):
     fecha_de_creacion = timezone.now()
 
     def __str__(self):
-        return "Control medico Ninio" + self.ninio + " fecha: " + self.fecha_de_creacion
+        return "Control medico Ninio" + " fecha: " + str(self.fecha_de_creacion)
+
+    def get_absolute_url(self):
+        return reverse("carnets:detail_Control_medico", kwargs={"pk": self.pk})
 
 
 class Carnet(models.Model):
@@ -102,20 +106,8 @@ class Nino(Persona):
         return reverse("carnets:detail_nino", kwargs={"pk": self.pk})
 
 
-class Agenda(models.Model):
-    medico_asignado = models.OneToOneField(
-        Medico, blank=True, null=True, on_delete=models.SET_NULL
-    )
-    fecha_control = models.DateField()
-    nino = models.ForeignKey(Nino, blank=True, null=True, on_delete=models.SET_NULL)
-    control_medico = models.OneToOneField(
-        Control_medico, blank=True, null=True, on_delete=models.SET_NULL
-    )
-
-
 class Tutor(Persona):
     hijos = models.ManyToManyField(Nino, blank=True, null=True, through="Tipo_de_tutor")
-    agenda = models.ForeignKey(Agenda, blank=True, null=True, on_delete=models.SET_NULL)
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
