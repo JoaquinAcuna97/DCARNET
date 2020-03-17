@@ -20,7 +20,7 @@ class PerfilMedicoView(DetailView):
         from django.http import Http404
 
         try:
-            medico = get_object_or_404(models.Medico, pk=kwargs["pk"])
+            medico = get_object_or_404(models.Medico, usuario_id=kwargs["pk"])
             context = {"medico": medico}
             return render(request, "carnets/indexDoctor/doctor_detail.html", context)
         except Http404:
@@ -28,6 +28,7 @@ class PerfilMedicoView(DetailView):
             from django.shortcuts import redirect
             from django.urls import reverse_lazy
 
+            print("NO ENCONTRAMOS al medico.....")
             return redirect(reverse("carnets:crear_medico"))
 
     def get_context_data(self, **kwargs):
