@@ -5,6 +5,7 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from . import models
+from autenticacion import models as authmodels
 from django.urls import reverse
 from django import forms
 
@@ -133,6 +134,12 @@ class NinoListView(ListView):
         context["ninos_list"] = models.Nino.objects.all()
         return context
 
+    def get_queryset(self):
+        # try/cach si no esta el usuario enviar a create medico
+        usuario = authmodels.Usuario.objects.get(id=self.kwargs["pk"])
+        medico = models.Medico.objects.get(usuario_id=usuario.id)
+        return models.Nino.objects.filter(medico_asignado_id=medico.id)
+
 
 class NinoCreate(CreateView):
     model = models.Nino
@@ -185,33 +192,33 @@ class Perfil_Control_medico_View(DetailView):
         context["control_medico"] = Control_medico.objects.get(self.object)
         return contex
 
+
 class Control_medico_form(forms.ModelForm):
     class Meta:
-       model = models.Control_medico
-       fields = [
-           "edad",
-           "peso",
-           "talla",
-           "pd",
-           "alimentacion",
-           "hierro",
-           "vit_D",
-           "observaciones",
-           "presion_arterial",
-           "proximo_control",
-       ]
-
+        model = models.Control_medico
+        fields = [
+            "edad",
+            "peso",
+            "talla",
+            "pd",
+            "alimentacion",
+            "hierro",
+            "vit_D",
+            "observaciones",
+            "presion_arterial",
+            "proximo_control",
+        ]
 
     def _init_(self, *args, **kwargs):
-       nino = kwargs.pop('nino')
-       super(Control_medico_form, self)._init_(*args, **kwargs)
-       self.fields['carnet'].queryset = Folder.objects.filter(carnet =nino.carnet)
+        nino = kwargs.pop("nino")
+        super(Control_medico_form, self)._init_(*args, **kwargs)
+        self.fields["carnet"].queryset = Folder.objects.filter(carnet=nino.carnet)
+
 
 class Control_medicoCreate(CreateView):
     model = models.Control_medico
     form_class = Control_medico_form
     template_name = "carnets/indexControl_medico/control_medico_form.html"
-
 
     def form_valid(self, form):
         if "foto_perfil" in self.request.FILES:

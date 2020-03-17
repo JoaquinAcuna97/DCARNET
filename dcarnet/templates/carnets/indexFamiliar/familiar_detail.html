@@ -24,7 +24,7 @@
         </div>
         </div>
 
-                        <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+                        <a class="nav-link" href="{% url 'carnets:nino_list' pk=user.usuario.pk%}">
                             <button class="btn btn-success">  Ver mis Niños   </button>
                          </a>
 

@@ -20,7 +20,7 @@ urlpatterns = [
     ),
     path("Crear_Familiar/", views.FamiliarCreate.as_view(), name="crear_familiar"),
     path("detail_Nino/<int:pk>/", views.PerfilNinoView.as_view(), name="detail_nino",),
-    path("list_nino", views.NinoListView.as_view(), name="nino_list"),
+    path("list_nino/<int:pk>/", views.NinoListView.as_view(), name="nino_list"),
     path("Crear_Nino/", views.NinoCreate.as_view(), name="crear_nino"),
     path(
         "detail_Control_medico/<int:pk>/",
@@ -32,7 +32,9 @@ urlpatterns = [
         views.Control_medicoCreate.as_view(),
         name="crear_control_medico",
     ),
-
-    path("list_control_medico", views.Control_medico_List_View.as_view(), name="control_list"),
-
+    path(
+        "list_control_medico",
+        views.Control_medico_List_View.as_view(),
+        name="control_list",
+    ),
 ]
