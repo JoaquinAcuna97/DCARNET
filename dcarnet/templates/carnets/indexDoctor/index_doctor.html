@@ -1,5 +1,5 @@
-{% extends "index.html" %}
-{% block cuerpo %}
+{% extends "base.html" %}
+{% block content %}
   <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
   <h2>tipo usuario: {{  user.usuario.tipo_usuario }}</h2>
 
@@ -7,4 +7,5 @@
 
   {% block controles_medico_block %}
   {% endblock %}
+  
 {% endblock %}

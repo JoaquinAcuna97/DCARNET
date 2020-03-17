@@ -6,68 +6,464 @@
   <div class="container">
     <div class="form-index" >
       <div class="row">
-        <h1>DCARNET</h1>
-      </div>
-      <div class="row">
 
         {% if user.usuario.tipo_usuario == "b" %}
 
-        <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
-        <br>
-  {% comment %}
-        <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
-  {% endcomment %}
-        <p>DCarné es una web que le permitirá actualizar el carné
-          de sus <b>Pacientes</b> para que los <b>Familiares</b> sepan la salud de sus niñ@s desde cualquier lugar y dispositivo.
-        </p>
+
+                <div class="col-xl-40 col-lg-20">
+                  <div class="card shadow mb-4">
+                      <div class="card-body" >
+                        <h2>Bienvenido a DCARNET Doctor {{ user.username }}!
+
+                        {% if user.usuario.foto_perfil %}
+                            <img style='border-radius: 50%; width: 20%' alt="avatar"  src="{{ user.usuario.foto_perfil.url }}"  >
+                         {% else %}
+                            <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                         {% endif %}
+
+                    </div>
+                  </div>
+
+                  <div class="container-fluid">
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                              <h1 class="h3 mb-0 text-gray-800"> Accesos rápidos </h1>
+
+                            </div>
+
+                            <!-- Content Row -->
+                            <div class="row">
+                              <!-- Earnings (Monthly) Card Example -->
+                              <div class="col-xl-3 col-md-6 mb-4">
+                                <a href="{% url 'carnets:nino_list' %}" >
+                                <div class="card border-left-primary shadow h-100 py-2" style="background-color:lightblue">
+                                  <div class="card-body" >
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"  > Ver Mis pacientes </div>
+                                      </div>
+                                      <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                </a>
+                              </div>
+
+
+                              <!-- Earnings (Monthly) Card Example -->
+                              <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2" style="background-color:lightgreen">
+                                  <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                          Agregar Controles Médicos </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                      </div>
+                                      <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Earnings (Monthly) Card Example -->
+                              <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2" style="background-color:skyblue">
+                                  <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Agendar próximos controles </div>
+                                        <div class="row no-gutters align-items-center">
+                                          <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                                          </div>
+                                          <div class="col">
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-auto">
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Pending Requests Card Example -->
+                              <div class="col-xl-3 col-md-6 mb-4">
+                                <a href="{% url 'carnets:detail_medico' pk=user.usuario.pk %}">
+                                <div class="card border-left-warning shadow h-100 py-2" style="background-color:lightyellow">
+                                  <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                      <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Administrar mi Perfil</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                      </div>
+                                      <div class="col-auto">
+                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                </a>
+                              </div>
+                            </div>
+
+                            <!-- Content Row -->
+                            <div class="row">
+
+
+
+                                  <!-- Card Body -->
+                                  <div class="card-body">
+                                    <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                    <p>DCarné es una web que le permitirá consultar el carné
+                                      de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
+                                    </p>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+
+                              </div>
+
+                              <div class="card-body">
+                                  <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                 <div class="text-xs font-weight-bold  text-uppercase mb-1">Novedades en DCARNET</div>
+                              <p>
+                                </p>
+                                </div>
+                              </div>
+                            </div>
+                </div>
+
+
+
+
+
 
         {% elif user.usuario.tipo_usuario == "a" %}
 
-        <h2>Bienvenido a DCARNET Familiar {{ user.username }}!</h2>
-  {% comment %}
-        <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
-  {% endcomment %}
-        <p>DCarné es una web que le permitirá consultar el carné
-          de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
-        </p>
+
+
+        <div class="col-xl-40 col-lg-20">
+          <div class="card shadow mb-4">
+              <div class="card-body" >
+                <h2>Bienvenido a DCARNET Familiar {{ user.username }}!
+
+                {% if user.usuario.foto_perfil %}
+                    <img style='border-radius: 50%; width: 20%' alt="avatar"  src="{{ user.usuario.foto_perfil.url }}"  >
+                 {% else %}
+                    <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                 {% endif %}
+
+            </div>
+          </div>
+
+          <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                      <h1 class="h3 mb-0 text-gray-800"> Accesos rápidos </h1>
+
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                      <!-- Earnings (Monthly) Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <a href="{% url 'carnets:nino_list' %}" >
+                        <div class="card border-left-primary shadow h-100 py-2" style="background-color:lightblue">
+                          <div class="card-body" >
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"  > Ver Mis Niños </div>
+                              </div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                            </div>
+                          </div>
+                        </div>
+                        </a>
+                      </div>
+
+
+                      <!-- Earnings (Monthly) Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2" style="background-color:lightgreen">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                  Agregar Controles Médicos </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                              </div>
+                              <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Earnings (Monthly) Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2" style="background-color:skyblue">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Agendar próximos controles </div>
+                                <div class="row no-gutters align-items-center">
+                                  <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"></div>
+                                  </div>
+                                  <div class="col">
+
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Pending Requests Card Example -->
+                      <div class="col-xl-3 col-md-6 mb-4">
+                        <a href="{% url 'carnets:detail_medico' pk=user.usuario.pk %}">
+                        <div class="card border-left-warning shadow h-100 py-2" style="background-color:lightyellow">
+                          <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Administrar mi Perfil</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                              </div>
+                              <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+
+
+                          <!-- Card Body -->
+                          <div class="card-body">
+                            <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                            <p>DCarné es una web que le permitirá consultar el carné
+                              de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
+                            </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card-body">
+                          <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                         <div class="text-xs font-weight-bold  text-uppercase mb-1">Novedades en DCARNET</div>
+                      <p>
+                        </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
 
         {% else %}
 
-        <h2>Bienvenido a DCARNET!</h2>
-        <br>
-        
-        <h3>Inicie sesion para continuar</h3>
-        <img src="{% static 'img/transparent.png' %}" width="300" height="300" class="d-inline-block align-top" alt="">
-        <p>DCarné es una web que le permitirá ver Digitalmente el carné
-          de salud de sus niñ@s desde cualquier lugar y dispositivo.
-        </p>
 
+        <div class="col-xl-20 col-lg-20">
+          <div class="card shadow mb-4">
+              <div class="card-body" >
+                <h2>Bienvenido a DCARNET <h2>
+                    <h3>Inicie sesion para continuar</h3>
+
+                    <img src="{% static 'img/transparent.png' %}" style='border-radius: 40%; width:20%' class="d-inline-block align-top" alt="">
+            </div>
+          </div>
+
+
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <h6>
+              Sobre DCarné </h6>
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <p>DCarnet es una web que le permitirá consultar el carné
+                de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
+              </p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+              <!-- Card Body -->
+              <div class="card-body">
+                <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <p> Proyecto realizado en el marco del programa b_IT
+                <img src="{% static 'iconos/Logo-bIT.png' %}" style=' width: 15%' class="d-inline-block align-top" alt="">
+
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="card shadow mb-4">
+
+              <div class="container-fluid">
+                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800"> Nuestro Equipo </h1>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-primary shadow h-100 py-2" >
+                        <div class="card-body" >
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"  > Giuliana Bentancor
+                                  <img src="{% static 'img/giu.jpg' %}" style='border-radius: 60%; width: 20%' class="d-inline-block align-top" alt="">
+
+                              </div>
+                            </div>
+                            <div class="">
+                              <p> Project Manager </p>
+                              <p> Front-end Developer </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-info shadow h-100 py-2" ">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> Joaquin Acuña
+
+
+                              </div>
+                              <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                  <div>
+                                    <p> Líder Técnico </p>
+                                    <p> Back-end Developer </p> </div>
+                                </div>
+                                <div class="col">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-warning shadow h-100 py-2" >
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Magdalena Calasso
+
+                                <img src="{% static 'img/magda.jpeg' %}" style='border-radius: 70%; width: 20%' class="d-inline-block align-top" alt="">
+
+
+                              </div>
+                              <div>
+                                <p> Análista Funcional </p>
+                                <p> Front-end Developer </p>
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+
+
+                  <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-primary shadow h-100 py-2" >
+                        <div class="card-body" >
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"  > Mauricio Castro
+
+                              </div>
+                            </div>
+                            <div >
+                              <p> Back-end Developer </p>
+                              <p> Testing </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-success shadow h-100 py-2" >
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Sofia Sastre
+                                <img src="{% static 'img/sofi.jpeg' %}" style='border-radius: 60%; width: 20%' class="d-inline-block align-top" alt="">
+
+                              </div>
+                              <div class="">
+                                <p> Testing </p>
+                                <p> Front-end Developer </p>
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+              </div>
+        </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+
+</main>
 
         {% endif %}
 
 
-        {% block body %}
-
-          {% comment %}
-
-          aqui se extenderan los djangos templates, representara cada pestania del index
-
-
-          {% endcomment %}
-
-
-        {% endblock %}
-
-
-
-      </div>
-    </div>
-</main>
-
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
 
