@@ -64,7 +64,7 @@ class PerfilFamiliarView(DetailView):
         from django.http import Http404
 
         try:
-            tutor = get_object_or_404(models.Tutor, pk=kwargs["pk"])
+            tutor = get_object_or_404(models.Tutor, usuario_id=kwargs["pk"])
             context = {"tutor": tutor}
             return render(
                 request, "carnets/indexFamiliar/familiar_detail.html", context
@@ -207,7 +207,7 @@ class Perfil_Control_medico_View(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["control_medico"] = models.objects.get(self.object)
+        context["control_medico"] = models.Control_medico.objects.get(self.object)
         return context
 
 
