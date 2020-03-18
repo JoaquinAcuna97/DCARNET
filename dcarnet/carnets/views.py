@@ -34,8 +34,8 @@ class PerfilMedicoView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["medico"] = Tutor.objects.get(self.object)
-        return contex
+        context["medico"] = models.Tutor.objects.get(self.object)
+        return context
 
 
 class MedicoCreate(CreateView):
@@ -78,8 +78,8 @@ class PerfilFamiliarView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tutor"] = Tutor.objects.get(self.object)
-        return contex
+        context["tutor"] = models.Tutor.objects.get(self.object)
+        return context
 
 
 class FamiliarCreate(CreateView):
@@ -119,8 +119,8 @@ class PerfilNinoView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["nino"] = Nino.objects.get(self.object)
-        return contex
+        context["nino"] = models.Nino.objects.get(self.object)
+        return context
 
 
 class NinoListView(ListView):
@@ -129,16 +129,27 @@ class NinoListView(ListView):
     paginate_by = 100  # if pagination is desired
     template_name = "carnets/indexNino/nino_list.html"
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["ninos_list"] = models.Nino.objects.all()
+    #     return context
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["ninos_list"] = models.Nino.objects.all()
-        return context
-
-    def get_queryset(self):
         # try/cach si no esta el usuario enviar a create medico
         usuario = authmodels.Usuario.objects.get(id=self.kwargs["pk"])
-        medico = models.Medico.objects.get(usuario_id=usuario.id)
-        return models.Nino.objects.filter(medico_asignado_id=medico.id)
+        print("el usuario es:" + "pk: " + str(usuario.id))
+
+        if usuario.tipo_usuario == "b":
+            print("el usuario es DOCTOR:" + "pk: " + str(usuario.id))
+            medico = models.Medico.objects.get(usuario_id=usuario.id)
+            context["ninos_list"] = medico.nino_set.all()
+        elif usuario.tipo_usuario == "a":
+            print("el usuario es TUTOR:" + "pk: " + str(usuario.id))
+            familiar = models.Tutor.objects.get(usuario_id=usuario.id)
+            context["ninos_list"] = familiar.hijos.all()
+
+        return context
 
 
 class NinoCreate(CreateView):
@@ -160,7 +171,14 @@ class NinoCreate(CreateView):
             print("Encontramos la foto")
             # If yes, then grab it from the POST form reply
             form.instance.foto_perfil = self.request.FILES["foto_perfil"]
-        form.instance.usuario = self.request.user.usuario
+        usuario = self.request.user.usuario
+        # Catch an instance of the object
+        nino = form.save(commit=False)
+        nino.save()
+
+        familiar = models.Tutor.objects.get(usuario_id=usuario.id)
+        familiar.hijos.add(nino)
+        self.success_url = self.model.get_absolute_url(nino)
         return super(NinoCreate, self).form_valid(form)
 
 
@@ -189,8 +207,8 @@ class Perfil_Control_medico_View(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["control_medico"] = Control_medico.objects.get(self.object)
-        return contex
+        context["control_medico"] = models.objects.get(self.object)
+        return context
 
 
 class Control_medico_form(forms.ModelForm):
