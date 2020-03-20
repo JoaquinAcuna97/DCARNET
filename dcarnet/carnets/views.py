@@ -7,6 +7,9 @@ from django.http import HttpResponse
 from . import models
 from autenticacion import models as authmodels
 from django.urls import reverse
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.http import Http404
 from django import forms
 
 # update and create views
@@ -18,16 +21,13 @@ class PerfilMedicoView(DetailView):
     template_name = "carnets/indexDoctor/doctor_detail.html"
 
     def get(self, request, *args, **kwargs):
-        from django.http import Http404
 
         try:
             medico = get_object_or_404(models.Medico, usuario_id=kwargs["pk"])
             context = {"medico": medico}
             return render(request, "carnets/indexDoctor/doctor_detail.html", context)
         except Http404:
-            # redirect is here
-            from django.shortcuts import redirect
-            from django.urls import reverse_lazy
+
 
             print("NO ENCONTRAMOS al medico.....")
             return redirect(reverse("carnets:crear_medico"))
@@ -61,7 +61,6 @@ class PerfilFamiliarView(DetailView):
     template_name = "carnets/indexFamiliar/familiar_detail.html"
 
     def get(self, request, *args, **kwargs):
-        from django.http import Http404
 
         try:
             tutor = get_object_or_404(models.Tutor, usuario_id=kwargs["pk"])
@@ -71,9 +70,6 @@ class PerfilFamiliarView(DetailView):
             )
         except Http404:
             # redirect is here
-            from django.shortcuts import redirect
-            from django.urls import reverse_lazy
-
             return redirect(reverse("carnets:crear_familiar"))
 
     def get_context_data(self, **kwargs):
@@ -104,16 +100,12 @@ class PerfilNinoView(DetailView):
     template_name = "carnets/indexNino/nino_detail.html"
 
     def get(self, request, *args, **kwargs):
-        from django.http import Http404
 
         try:
             nino = get_object_or_404(models.Nino, pk=kwargs["pk"])
             context = {"nino": nino}
             return render(request, "carnets/indexNino/nino_detail.html", context)
         except Http404:
-            # redirect is here
-            from django.shortcuts import redirect
-            from django.urls import reverse_lazy
 
             return redirect(reverse("carnets:crear_nino"))
 
@@ -137,18 +129,21 @@ class NinoListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # try/cach si no esta el usuario enviar a create medico
-        usuario = authmodels.Usuario.objects.get(id=self.kwargs["pk"])
-        print("el usuario es:" + "pk: " + str(usuario.id))
-
+        usuario = authmodels.Usuario.objects.get(id=self.request.user.usuario.id)
         if usuario.tipo_usuario == "b":
-            print("el usuario es DOCTOR:" + "pk: " + str(usuario.id))
-            medico = models.Medico.objects.get(usuario_id=usuario.id)
-            context["ninos_list"] = medico.nino_set.all()
-        elif usuario.tipo_usuario == "a":
-            print("el usuario es TUTOR:" + "pk: " + str(usuario.id))
-            familiar = models.Tutor.objects.get(usuario_id=usuario.id)
-            context["ninos_list"] = familiar.hijos.all()
+            try:
+                medico = models.Medico.objects.get(usuario_id=usuario.id)
+                context["ninos_list"] = medico.nino_set.all()
+            except Http404:
+                return redirect(reverse("carnets:crear_medico"))
 
+        elif usuario.tipo_usuario == "a":
+            try:
+                familiar = models.Tutor.objects.get(usuario_id=usuario.id)
+                context["ninos_list"] = familiar.hijos.all()
+
+            except Http404:
+                return redirect(reverse("carnets:crear_familiar"))
         return context
 
 
