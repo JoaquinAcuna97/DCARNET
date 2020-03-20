@@ -126,24 +126,27 @@ class NinoListView(ListView):
     #     context["ninos_list"] = models.Nino.objects.all()
     #     return context
 
+    def dispatch(self, request, *args, **kwargs):
+        usuario = authmodels.Usuario.objects.get(id=self.request.user.usuario.id)
+
+        if usuario.tipo_usuario == "b" and not models.Medico.objects.filter(usuario_id=usuario.id).exists():
+            return redirect(reverse("carnets:crear_medico"))
+        elif usuario.tipo_usuario == "a" and not models.Tutor.objects.filter(usuario_id=usuario.id).exists():
+            return redirect(reverse("carnets:crear_familiar"))
+
+        return super(ListView, self).dispatch(request, *args, **kwargs)
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # try/cach si no esta el usuario enviar a create medico
         usuario = authmodels.Usuario.objects.get(id=self.request.user.usuario.id)
         if usuario.tipo_usuario == "b":
-            try:
-                medico = get_object_or_404(models.Medico, usuario_id=usuario.id)
+                medico = models.Medico.objects.filter(usuario_id=usuario.id)
                 context["ninos_list"] = medico.nino_set.all()
-            except Http404:
-                return redirect(reverse("carnets:crear_medico"))
-
         elif usuario.tipo_usuario == "a":
-            try:
-                familiar = get_object_or_404(models.Tutor, usuario_id=usuario.id)
+                familiar = models.Tutor.objects.filter(usuario_id=usuario.id)
                 context["ninos_list"] = familiar.hijos.all()
-
-            except Http404:
-                return redirect(reverse("carnets:crear_familiar"))
         return context
 
 
