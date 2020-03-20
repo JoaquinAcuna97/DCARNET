@@ -142,10 +142,10 @@ class NinoListView(ListView):
         # try/cach si no esta el usuario enviar a create medico
         usuario = authmodels.Usuario.objects.get(id=self.request.user.usuario.id)
         if usuario.tipo_usuario == "b":
-                medico = models.Medico.objects.filter(usuario_id=usuario.id)
+                medico = models.Medico.objects.get(usuario_id=usuario.id)
                 context["ninos_list"] = medico.nino_set.all()
         elif usuario.tipo_usuario == "a":
-                familiar = models.Tutor.objects.filter(usuario_id=usuario.id)
+                familiar = models.Tutor.objects.get(usuario_id=usuario.id)
                 context["ninos_list"] = familiar.hijos.all()
         return context
 
