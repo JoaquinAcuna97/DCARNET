@@ -12,10 +12,9 @@
           <hr class="my-3">
 
           <br>
-          {% if person.image %}
-          <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;"  src="{{ nino.foto_perfil.url }}"  alt="">
+          {% if nino.foto_perfil %}
+              <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;"  src="{{ nino.foto_perfil.url }}"  alt="">
           {% endif %}
-
           <dl>
               <dt>Fecha de Nacimiento</dt>
               <dd><p</p> {{ nino.fecha_de_nacimiento }} </dd>
