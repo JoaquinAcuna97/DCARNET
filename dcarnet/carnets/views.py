@@ -132,14 +132,14 @@ class NinoListView(ListView):
         usuario = authmodels.Usuario.objects.get(id=self.request.user.usuario.id)
         if usuario.tipo_usuario == "b":
             try:
-                medico = models.Medico.objects.get(usuario_id=usuario.id)
+                medico = get_object_or_404(models.Medico, usuario_id=usuario.id)
                 context["ninos_list"] = medico.nino_set.all()
             except Http404:
                 return redirect(reverse("carnets:crear_medico"))
 
         elif usuario.tipo_usuario == "a":
             try:
-                familiar = models.Tutor.objects.get(usuario_id=usuario.id)
+                familiar = get_object_or_404(models.Tutor, usuario_id=usuario.id)
                 context["ninos_list"] = familiar.hijos.all()
 
             except Http404:
