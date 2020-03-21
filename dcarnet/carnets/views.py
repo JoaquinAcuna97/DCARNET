@@ -27,14 +27,12 @@ class PerfilMedicoView(DetailView):
             context = {"medico": medico}
             return render(request, "carnets/indexDoctor/doctor_detail.html", context)
         except Http404:
-
-
             print("NO ENCONTRAMOS al medico.....")
             return redirect(reverse("carnets:crear_medico"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["medico"] = models.Tutor.objects.get(self.object)
+        context["medico"] = models.Medico.objects.get(self.object)
         return context
 
 
@@ -52,6 +50,9 @@ class MedicoCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user.usuario
+        medico = form.save(commit=False)
+        medico.save()
+        self.success_url = self.model.get_absolute_url(medico)
         return super(MedicoCreate, self).form_valid(form)
 
 
@@ -91,6 +92,9 @@ class FamiliarCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user.usuario
+        familiar = form.save(commit=False)
+        familiar.save()
+        self.success_url = self.model.get_absolute_url(familiar)
         return super(FamiliarCreate, self).form_valid(form)
 
 
