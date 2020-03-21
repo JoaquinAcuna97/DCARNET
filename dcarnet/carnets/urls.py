@@ -24,7 +24,7 @@ urlpatterns = [
 
 ##Control Medico
     path(
-        "Crear_Control_medico/",
+        "Crear_Control_medico/<int:pk>/",
         views.Control_medicoCreate.as_view(),
         name="crear_control_medico"
     ),
@@ -34,7 +34,7 @@ urlpatterns = [
         name="detail_Control_medico"
     ),
     path(
-        "list_control_medico/",
+        "list_control_medico/<int:pk>/",
         views.Control_medico_List_View.as_view(),
         name="control_list"
     ),

@@ -174,8 +174,12 @@ class NinoCreate(CreateView):
             # If yes, then grab it from the POST form reply
             form.instance.foto_perfil = self.request.FILES["foto_perfil"]
         usuario = self.request.user.usuario
+        carnet = models.Carnet.create()
+        carnet.save()
         # Catch an instance of the object
+        form.instance.carnet=carnet
         nino = form.save(commit=False)
+
         nino.save()
 
         familiar = models.Tutor.objects.get(usuario_id=usuario.id)
@@ -241,12 +245,23 @@ class Control_medicoCreate(CreateView):
     template_name = "carnets/indexControl_medico/control_medico_form.html"
 
     def form_valid(self, form):
-        if "foto_perfil" in self.request.FILES:
-            print("Encontramos la foto")
-            # If yes, then grab it from the POST form reply
-            form.instance.foto_perfil = self.request.FILES["foto_perfil"]
-            form.instance.usuario = self.request.user.usuario
+        try:
+            carnet = models.Carnet.objects.get(pk=self.kwargs.get('pk'))
+
+            form.instance.carnet = carnet
+            control = form.save(commit=False)
+
+            control.save()
+            carnet.control_medico_set.add(control)
+        except Http404:
+            print("NO ENCONTRAMOS al el carnet.....")
+
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(CreateView, self).get_context_data(**kwargs)
+        ctx['nino'] =self.kwargs.get('pk')
+        return ctx
 
 
 class Control_medico_List_View(ListView):
@@ -257,5 +272,8 @@ class Control_medico_List_View(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["Control_medico_list"] = models.Control_medico.objects.all()
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        context["carnet"] = carnet
+        context["Control_medico_list"] = carnet.control_medico_set.all()
         return context
