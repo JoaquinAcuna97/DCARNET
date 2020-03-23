@@ -22,7 +22,7 @@ class PerfilMedicoView(DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            medico = get_object_or_404(models.Medico, pk=kwargs["pk"])
+            medico = get_object_or_404(models.Medico, usuario_id=kwargs["pk"])
             context = {"medico": medico}
             return render(request, "carnets/indexDoctor/doctor_detail.html", context)
         except Http404:
@@ -63,7 +63,7 @@ class PerfilFamiliarView(DetailView):
     def get(self, request, *args, **kwargs):
 
         try:
-            tutor = get_object_or_404(models.Tutor, pk=kwargs["pk"])
+            tutor = get_object_or_404(models.Tutor, usuario_id=kwargs["pk"])
             context = {"tutor": tutor}
             return render(
                 request, "carnets/indexFamiliar/familiar_detail.html", context
@@ -195,8 +195,12 @@ class Perfil_Control_medico_View(DetailView):
         from django.http import Http404
 
         try:
+
             control_medico = get_object_or_404(models.Control_medico, pk=kwargs["pk"])
+            carnet = models.Carnet.objects.get(pk=control_medico.carnet_id)
+            nino = models.Nino.objects.get(pk=carnet.nino.pk)
             context = {"control_medico": control_medico}
+            context["nino"] = nino
             return render(
                 request,
                 "carnets/indexControl_medico/control_medico_detail.html",
@@ -248,8 +252,8 @@ class Control_medicoCreate(CreateView):
 
     def form_valid(self, form):
         try:
-            carnet = models.Carnet.objects.get(pk=self.kwargs.get('pk'))
-
+            nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+            carnet = models.Carnet.objects.get(pk=nino.carnet_id)
             form.instance.carnet = carnet
             control = form.save(commit=False)
 

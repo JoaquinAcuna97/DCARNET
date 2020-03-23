@@ -117,7 +117,7 @@ class Tutor(Persona):
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse("carnets:detail_familiar", kwargs={"pk": self.pk})
+        return reverse("carnets:detail_familiar", kwargs={"pk": self.usuario.pk})
 
 
 class Tipo_de_tutor(models.Model):
