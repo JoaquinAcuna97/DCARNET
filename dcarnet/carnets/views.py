@@ -178,7 +178,6 @@ class NinoCreate(CreateView):
         # Catch an instance of the object
         form.instance.carnet=carnet
         nino = form.save(commit=False)
-
         nino.save()
 
         familiar = models.Tutor.objects.get(usuario_id=usuario.id)
@@ -218,6 +217,7 @@ class Perfil_Control_medico_View(DetailView):
         context["nino"] = nino
         context["control_medico"] = models.Control_medico.objects.get(self.object)
         return context
+
 
 class Control_medico_form(forms.ModelForm):
     class Meta:
