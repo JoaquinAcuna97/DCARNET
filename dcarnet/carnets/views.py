@@ -21,9 +21,8 @@ class PerfilMedicoView(DetailView):
     template_name = "carnets/indexDoctor/doctor_detail.html"
 
     def get(self, request, *args, **kwargs):
-
         try:
-            medico = get_object_or_404(models.Medico, usuario_id=kwargs["pk"])
+            medico = get_object_or_404(models.Medico, pk=kwargs["pk"])
             context = {"medico": medico}
             return render(request, "carnets/indexDoctor/doctor_detail.html", context)
         except Http404:
@@ -64,7 +63,7 @@ class PerfilFamiliarView(DetailView):
     def get(self, request, *args, **kwargs):
 
         try:
-            tutor = get_object_or_404(models.Tutor, usuario_id=kwargs["pk"])
+            tutor = get_object_or_404(models.Tutor, pk=kwargs["pk"])
             context = {"tutor": tutor}
             return render(
                 request, "carnets/indexFamiliar/familiar_detail.html", context
@@ -213,9 +212,12 @@ class Perfil_Control_medico_View(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        context["carnet"] = carnet
+        context["nino"] = nino
         context["control_medico"] = models.Control_medico.objects.get(self.object)
         return context
-
 
 class Control_medico_form(forms.ModelForm):
     class Meta:
@@ -259,10 +261,13 @@ class Control_medicoCreate(CreateView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        ctx = super(CreateView, self).get_context_data(**kwargs)
-        ctx['nino'] =self.kwargs.get('pk')
-        return ctx
-
+        context = super(CreateView, self).get_context_data(**kwargs)
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        context["carnet"] = carnet
+        context["nino"] = nino
+        context["Control_medico_list"] = carnet.control_medico_set.all()
+        return context
 
 class Control_medico_List_View(ListView):
 
@@ -275,5 +280,6 @@ class Control_medico_List_View(ListView):
         nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
         carnet = models.Carnet.objects.get(pk=nino.carnet_id)
         context["carnet"] = carnet
+        context["nino"] = nino
         context["Control_medico_list"] = carnet.control_medico_set.all()
         return context

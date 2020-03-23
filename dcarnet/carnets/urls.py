@@ -29,7 +29,7 @@ urlpatterns = [
         name="crear_control_medico"
     ),
     path(
-        "detail_Control_medico/<int:pk>",
+        "detail_Control_medico/<int:pk>/",
         views.Perfil_Control_medico_View.as_view(),
         name="detail_Control_medico"
     ),
