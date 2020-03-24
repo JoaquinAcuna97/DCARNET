@@ -9,14 +9,14 @@
         <h1>DCARNET</h1>
       </div>
       <div class="row">
-
+{#Doctor logueado aqui #}
         {% if user.usuario.tipo_usuario == "b" %}
 
         <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
         <br>
-  {% comment %}
-        <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
-  {% endcomment %}
+          {% comment %}
+                <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
+          {% endcomment %}
         <p>DCarné es una web que le permitirá actualizar el carné
           de sus <b>Pacientes</b> para que los <b>Familiares</b> sepan la salud de sus niñ@s desde cualquier lugar y dispositivo.
         </p>

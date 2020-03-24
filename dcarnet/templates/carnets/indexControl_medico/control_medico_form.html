@@ -6,18 +6,14 @@
         <div class="row">
 
 
-<form class="form" method="post">{% csrf_token %}
-  <h1 class="display-4"> Agregar Control Médico </h1>
-    {{ form.as_p }}
-    <input type="submit" value="Guardar" class="btn btn-default btn-lg">
-
-
-    <a href="{% url 'carnets:control_list' pk=nino %}">
+    <form class="form" method="post">{% csrf_token %}
+      <h1 class="display-4"> Agregar Control Médico </h1>
+        {{ form.as_p }}
+        <input type="submit" value="Guardar" class="btn btn-default btn-lg">
+          <a href="{% url 'carnets:control_list' pk=nino.pk %}">
        Volver
     </a>
-
-
-</form>
+    </form>
 
 </div>
 </div>
