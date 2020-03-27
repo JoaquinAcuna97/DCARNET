@@ -14,6 +14,17 @@
   font-size: 40px;
 }
 
+.titulomagui {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.textmagui {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+}
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;

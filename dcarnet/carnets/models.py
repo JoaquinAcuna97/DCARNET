@@ -3,6 +3,9 @@ from autenticacion import models as authmodels
 from django.utils import timezone
 from django.urls import reverse
 from django import forms
+import locale
+locale.setlocale(locale.LC_ALL, 'es-ES')
+from datetime import datetime
 
 
 class Persona(models.Model):
@@ -77,6 +80,8 @@ class Control_medico(models.Model):
     presion_arterial = models.FloatField()
     proximo_control = models.DateField()
     fecha_de_creacion = timezone.now()
+    fecha_crea=fecha_de_creacion.strftime('%d de %B de %Y')
+
 
     def __str__(self):
         return "Control medico Ninio" + " fecha: " + str(self.fecha_de_creacion)
