@@ -60,11 +60,20 @@ class Medico(Persona):
     )
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
     tipo_especializacion = models.CharField(max_length=11, choices=especializacion)
-    fecha_de_creacion = timezone.now()
 
     def get_absolute_url(self):
         return reverse("carnets:detail_medico", kwargs={"pk": self.pk})
 
+
+class Carnet(models.Model):
+    fecha_de_creacion = models.DateTimeField(default=timezone.now)
+    # campos adicicionales: ultimo control, graficas, etc
+
+    @classmethod
+    def create(cls):
+        carnet = cls()
+        # do something with the book
+        return carnet
 
 class Control_medico(models.Model):
     edad = models.IntegerField()
@@ -77,8 +86,10 @@ class Control_medico(models.Model):
     observaciones = models.TextField()
     presion_arterial = models.FloatField()
     proximo_control = models.DateField()
-    fecha_de_creacion = timezone.now()
-
+    fecha_de_creacion = models.DateTimeField(default=timezone.now)
+    carnet = models.ForeignKey(
+        Carnet, blank=True, null=True, on_delete=models.SET_NULL
+    )
     def __str__(self):
         return "Control medico Ninio" + " fecha: " + str(self.fecha_de_creacion)
 
@@ -86,11 +97,6 @@ class Control_medico(models.Model):
         return reverse("carnets:detail_Control_medico", kwargs={"pk": self.pk})
 
 
-class Carnet(models.Model):
-    # campos adicicionales: ultimo control, graficas, etc
-    control_medico = models.ForeignKey(
-        Control_medico, blank=True, null=True, on_delete=models.SET_NULL
-    )
 
 
 class Nino(Persona):
@@ -112,7 +118,7 @@ class Tutor(Persona):
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse("carnets:detail_familiar", kwargs={"pk": self.pk})
+        return reverse("carnets:detail_familiar", kwargs={"pk": self.usuario.pk})
 
 
 class Tipo_de_tutor(models.Model):

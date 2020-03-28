@@ -21,20 +21,17 @@ class PerfilMedicoView(DetailView):
     template_name = "carnets/indexDoctor/doctor_detail.html"
 
     def get(self, request, *args, **kwargs):
-
         try:
             medico = get_object_or_404(models.Medico, usuario_id=kwargs["pk"])
             context = {"medico": medico}
             return render(request, "carnets/indexDoctor/doctor_detail.html", context)
         except Http404:
-
-
             print("NO ENCONTRAMOS al medico.....")
             return redirect(reverse("carnets:crear_medico"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["medico"] = models.Tutor.objects.get(self.object)
+        context["medico"] = models.Medico.objects.get(self.object)
         return context
 
 
@@ -52,6 +49,9 @@ class MedicoCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user.usuario
+        medico = form.save(commit=False)
+        medico.save()
+        self.success_url = self.model.get_absolute_url(medico)
         return super(MedicoCreate, self).form_valid(form)
 
 
@@ -91,6 +91,9 @@ class FamiliarCreate(CreateView):
 
     def form_valid(self, form):
         form.instance.usuario = self.request.user.usuario
+        familiar = form.save(commit=False)
+        familiar.save()
+        self.success_url = self.model.get_absolute_url(familiar)
         return super(FamiliarCreate, self).form_valid(form)
 
 
@@ -170,7 +173,10 @@ class NinoCreate(CreateView):
             # If yes, then grab it from the POST form reply
             form.instance.foto_perfil = self.request.FILES["foto_perfil"]
         usuario = self.request.user.usuario
+        carnet = models.Carnet.create()
+        carnet.save()
         # Catch an instance of the object
+        form.instance.carnet=carnet
         nino = form.save(commit=False)
         nino.save()
 
@@ -189,8 +195,12 @@ class Perfil_Control_medico_View(DetailView):
         from django.http import Http404
 
         try:
+
             control_medico = get_object_or_404(models.Control_medico, pk=kwargs["pk"])
+            carnet = models.Carnet.objects.get(pk=control_medico.carnet_id)
+            nino = models.Nino.objects.get(pk=carnet.nino.pk)
             context = {"control_medico": control_medico}
+            context["nino"] = nino
             return render(
                 request,
                 "carnets/indexControl_medico/control_medico_detail.html",
@@ -205,6 +215,10 @@ class Perfil_Control_medico_View(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        context["carnet"] = carnet
+        context["nino"] = nino
         context["control_medico"] = models.Control_medico.objects.get(self.object)
         return context
 
@@ -237,13 +251,27 @@ class Control_medicoCreate(CreateView):
     template_name = "carnets/indexControl_medico/control_medico_form.html"
 
     def form_valid(self, form):
-        if "foto_perfil" in self.request.FILES:
-            print("Encontramos la foto")
-            # If yes, then grab it from the POST form reply
-            form.instance.foto_perfil = self.request.FILES["foto_perfil"]
-            form.instance.usuario = self.request.user.usuario
+        try:
+            nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+            carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+            form.instance.carnet = carnet
+            control = form.save(commit=False)
+
+            control.save()
+            carnet.control_medico_set.add(control)
+        except Http404:
+            print("NO ENCONTRAMOS al el carnet.....")
+
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        context["carnet"] = carnet
+        context["nino"] = nino
+        context["Control_medico_list"] = carnet.control_medico_set.all()
+        return context
 
 class Control_medico_List_View(ListView):
 
@@ -253,5 +281,9 @@ class Control_medico_List_View(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["Control_medico_list"] = models.Control_medico.objects.all()
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        context["carnet"] = carnet
+        context["nino"] = nino
+        context["Control_medico_list"] = carnet.control_medico_set.all()
         return context
