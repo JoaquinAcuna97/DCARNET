@@ -1,66 +1,63 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="form-index" >
-
-    <div class="container">
-      <div class="row">
-        <div class="container mt-5">
-          <div class="text-center p-4">
-              <h2 class="display-4"> {{ nino.nombre }} {{ nino.apellido }} </h2>
-
-          </div>
-          <hr class="my-3">
-
-          <br>
-          {% if nino.foto_perfil %}
-              <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;"  src="{{ nino.foto_perfil.url }}"  alt="">
-          {% endif %}
-          <dl>
-              <dt class= "titulomagui">Fecha de Nacimiento</dt>
-              <dd><p class= "textmagui"> </p> {{ nino.fecha_de_nacimiento }} </dd>
-
-              <dt class= "titulomagui">Lugar de Nacimiento</dt>
-              <dd><p class= "textmagui"> {{ nino.lugar_de_nacimiento }} </p></dd>
-
-              <dt class= "titulomagui">Documento de Identidad</dt>
-              <dd><p class= "textmagui">{{ nino.documento_de_Identidad }}</p></dd>
-
-              <dt class= "titulomagui">Servicio de Salud</dt>
-              <dd><p class= "textmagui">{{ nino.servicio_de_salud }}</p> </dd>
-
-              <dt class= "titulomagui">Médico Asignado</dt>
-                <dd><p class= "textmagui">{{ nino.medico_asignado }}</p> </dd>
-
-
-            </dl>
-
-<br>
-<br>
+<div class="form-index">
+  <div class="container">
+    <div class="row">
+      <div class="container mt-5">
+        <div class="text-center p-4">
+          <h2 class="display-4"> {{ nino.nombre }} {{ nino.apellido }} </h2>
 
         </div>
+        <hr class="my-3">
+
+        <br>
+        {% if nino.foto_perfil %}
+        <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;" src="{{ nino.foto_perfil.url }}" alt="">
+        {% endif %}
+        <dl>
+          <dt class="titulomagui">Fecha de Nacimiento</dt>
+          <dd>
+            <p class="textmagui"> </p> {{ nino.fecha_de_nacimiento }}
+          </dd>
+
+          <dt class="titulomagui">Lugar de Nacimiento</dt>
+          <dd>
+            <p class="textmagui"> {{ nino.lugar_de_nacimiento }} </p>
+          </dd>
+
+          <dt class="titulomagui">Documento de Identidad</dt>
+          <dd>
+            <p class="textmagui">{{ nino.documento_de_Identidad }}</p>
+          </dd>
+
+          <dt class="titulomagui">Servicio de Salud</dt>
+          <dd>
+            <p class="textmagui">{{ nino.servicio_de_salud }}</p>
+          </dd>
+
+          <dt class="titulomagui">Médico Asignado</dt>
+          <dd>
+            <p class="textmagui">{{ nino.medico_asignado }}</p>
+          </dd>
 
 
-        </div>
+        </dl>
 
+        <br>
+        <br>
 
-
-        <p>
-
-  <a type="button" href="{% url 'carnets:nino_list' %}">
-      <button type="button" class="btn btn-default btn-lg"> Volver </button> </a>
-
-  <a type="button" href="{% url 'carnets:control_list' pk=nino.pk %}">
-      <button type="button" class="btn btn-default btn-lg"> Ver Controles Médicos </button> </a>
-</p>
-
-        </div>
-
-
-
-
-
+      </div>
     </div>
+    <p>
+      <a type="button" href="{% url 'carnets:nino_list' %}">
+        <button type="button" class="btn btn-default btn-lg"> Volver </button> </a>
+
+      <a type="button" href="{% url 'carnets:control_list' pk=nino.pk %}">
+        <button type="button" class="btn btn-default btn-lg"> Ver Controles Médicos </button> </a>
+    </p>
+  </div>
+</div>
 
 
 
-  {% endblock %}
+{% endblock %}
