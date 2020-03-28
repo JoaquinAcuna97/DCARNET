@@ -21,6 +21,7 @@ class Persona(models.Model):
         ("c", "Nino"),
     )
     tipo_persona = models.CharField(max_length=1, choices=tipos)
+    
 
     def __str__(self):
         return self.nombre + " " + self.apellido
