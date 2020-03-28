@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from autenticacion.form import UsuarioForm, PerfilUsuarioForm, LoginForm
-
+from autenticacion.models import Usuario
 # Extra Imports for the Login and Logout Capabilities
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -39,10 +39,10 @@ def register(request):
         # Get info from "both" forms
         # It appears as one form to the user on the .html page
         user_form = UsuarioForm(data=request.POST)
-        profile_form = PerfilUsuarioForm(data=request.POST)
+        usuario_form = PerfilUsuarioForm(data=request.POST)
 
         # Check to see both forms are valid
-        if user_form.is_valid() and profile_form.is_valid():
+        if user_form.is_valid() and usuario_form.is_valid():
 
             # Save User Form to Database
             user = user_form.save()
@@ -56,38 +56,46 @@ def register(request):
             # Now we deal with the extra info!
 
             # Can't commit yet because we still need to manipulate
-            profile = profile_form.save(commit=False)
+            usuario = usuario_form.save(commit=False)
 
             # Set One to One relationship between
-            # UserForm and UserProfileInfoForm
-            profile.user = user
+            # UserForm and UserusuarioInfoForm
+            usuario.user = user
 
-            # Check if they provided a profile picture
+            # Check if they provided a usuario picture
 
             if "foto_perfil" in request.FILES:
                 print("Encontramos la foto")
                 # If yes, then grab it from the POST form reply
-                profile.foto_perfil = request.FILES["foto_perfil"]
+                usuario.foto_perfil = request.FILES["foto_perfil"]
 
             # Now save model
-            profile.save()
+            usuario.save()
             print("# Registration Successful!")
 
             registered = True
 
         else:
             # One of the forms was invalid if this else gets called.
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors, usuario_form.errors)
 
     else:
         # Was not an HTTP post so we just render the forms as blank.
         user_form = UsuarioForm()
-        profile_form = PerfilUsuarioForm()
+        usuario_form = PerfilUsuarioForm()
 
     # This is the render and context dictionary to feed
     # back to the registration.html file page.
     if registered:
         login(request, user)
+
+        usuario = Usuario.objects.get(user_id=user.pk)
+
+        if usuario:
+            if user.usuario.tipo_usuario == "b":
+                return HttpResponseRedirect(reverse("carnets:crear_medico"))
+            elif user.usuario.tipo_usuario == "a":
+                return HttpResponseRedirect(reverse("carnets:crear_familiar"))
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(
@@ -95,7 +103,7 @@ def register(request):
             "autenticacion/registration.html",
             {
                 "user_form": user_form,
-                "profile_form": profile_form,
+                "profile_form": usuario_form,
                 "registered": registered,
             },
         )
@@ -118,9 +126,9 @@ def user_login(request):
 
             # If we have a user
             if user:
+
                 messages.info(
-                    request,
-                    "",
+                    request, "",
                 )
                 if user.is_active:
                     if user.is_staff:
@@ -130,10 +138,31 @@ def user_login(request):
                         print("hello admin!")
                         return redirect("/admin/")
                     else:
+
+
+                        usuario = Usuario.objects.get(user_id=user.pk)
                         # Log the user in.
                         login(request, user)
-                        messages.success(request, "Hello User!")  # <-
+                        messages.success(request, "Hello !")  # <-
                         # Send the user back to some page.
+
+                        from carnets.models import Medico, Tutor
+                        if usuario:
+                            if user.usuario.tipo_usuario == "b":
+                                messages.success(request, "Hola doctor!")
+                                medico = Medico.objects.get(usuario_id=user.usuario.pk)
+                                if not medico:
+                                    messages.success(request, "Complete perfil!")
+                                    return HttpResponseRedirect(reverse("carnets:crear_medico"))
+                            elif user.usuario.tipo_usuario == "a":
+                                messages.success(request, "Hola tutor!")
+                                tutor = Tutor.objects.get(usuario_id=user.usuario.pk)
+                                if not tutor:
+                                    messages.success(request, "Complete perfil!")
+                                    return HttpResponseRedirect(reverse("carnets:crear_familiar"))
+
+
+
                         # In this case their homepage.
                         return HttpResponseRedirect(reverse("index"))
                 else:

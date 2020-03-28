@@ -51,7 +51,7 @@
               </a>
             </li>
             <li class=" ">
-              <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+              <a class="nav-link" href="{% url 'carnets:nino_list'%}">
               <img src="{% static 'iconos/familia.png' %}">
                 Mis pacientes
               </a>
@@ -61,7 +61,7 @@
 
             <ul class="nav navbar-nav navbar-right">
             <li class=" " >
-              <a class="nav-link" href="{% url 'carnets:detail_medico' pk=user.pk %}">
+              <a class="nav-link" href="{% url 'carnets:detail_medico' pk=user.usuario.pk %}">
                 <img src="{% static 'iconos/doctor.png' %}">
                 Mi perfil
               </a>
@@ -86,7 +86,7 @@
               </a>
             </li>
             <li class="">
-              <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+              <a class="nav-link" href="{% url 'carnets:nino_list'%}">
                 <img src="{% static 'iconos/familia.png' %}">
                 Mis niños
               </a>
@@ -101,7 +101,7 @@
 
             <ul class="nav navbar-nav navbar-right ">
             <li class="">
-              <a class="nav-link" href="{% url 'carnets:detail_familiar' pk=user.pk%}">
+              <a class="nav-link" href="{% url 'carnets:detail_familiar' user.usuario.pk%}">
                 <img src="{% static 'iconos/usuario.png' %}">
                 Mi perfil
               </a>

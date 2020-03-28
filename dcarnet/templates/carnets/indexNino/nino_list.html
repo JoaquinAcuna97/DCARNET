@@ -13,10 +13,12 @@
                     <div class="text-center p-4">
                                 <h1 class="display-1">Mis Niños</h1>
                       </div>
-
+                      {% if user.usuario.tipo_usuario == "a" %}
+                       {#solo puede aniadir ninos el tutor#}
                       <a href="{% url 'carnets:crear_nino' %}">
                          <button type="button" class="btn btn-default btn-lg"> <img src="{% static 'iconos/mas.png' %}" > Agregar nuevo niño</button>
                       </a>
+                      {% endif %}
                       <hr>
 
                     <div class="row">
@@ -25,7 +27,10 @@
                             {% for nino in ninos_list %}
                             <div class="col-md-4">
                               <div class="card mb-4 shadow-sm custom-card">
-                                <img class="bd-placeholder-img card-img-top"  style="height: 225px; width: 100%; display: block;" src="{{ nino.foto_perfil.url }}"  alt="">
+
+                                {% if nino.foto_perfil %}
+                                    <img class="bd-placeholder-img card-img-top"  style="height: 225px; width: 100%; display: block;" src="{{ nino.foto_perfil.url }}"  alt="">
+                                {% endif %}
                                       <h2 class="m-3"> {{ nino.nombre }} {{ nino.apellido }} </h2>
                                       <div class="card-body">
                                             <p class="card-text">
@@ -40,20 +45,12 @@
                                       </div>
                                     </div>
                                   </div>
-
                                 </div>
-
-
-
-
 
                                 {% empty %}
                                     <li> Aún no hay ninos.
 
                                      </li>
-
-
-
                                 {% endfor %}
 
 

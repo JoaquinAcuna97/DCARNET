@@ -12,11 +12,12 @@
           <hr class="my-3">
 
           <br>
-          <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;"  src="{{ nino.foto_perfil.url }}"  alt="">
-
+          {% if nino.foto_perfil %}
+              <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:35%;"  src="{{ nino.foto_perfil.url }}"  alt="">
+          {% endif %}
           <dl>
               <dt class= "titulomagui">Fecha de Nacimiento</dt>
-              <dd><p class= "textmagui"</p> {{ nino.fecha_de_nacimiento }} </dd>
+              <dd><p class= "textmagui"> </p> {{ nino.fecha_de_nacimiento }} </dd>
 
               <dt class= "titulomagui">Lugar de Nacimiento</dt>
               <dd><p class= "textmagui"> {{ nino.lugar_de_nacimiento }} </p></dd>
@@ -30,7 +31,7 @@
               <dt class= "titulomagui">Médico Asignado</dt>
                 <dd><p class= "textmagui">{{ nino.medico_asignado }}</p> </dd>
 
-            
+
             </dl>
 
 <br>
@@ -48,8 +49,8 @@
   <a type="button" href="{% url 'carnets:nino_list' %}">
       <button type="button" class="btn btn-default btn-lg"> Volver </button> </a>
 
-  <a type="button" href="{% url 'carnets:control_list' %}">
-      <button type="button" class="btn btn-primary btn-lg"> Ver Controles Médicos </button> </a>
+  <a type="button" href="{% url 'carnets:control_list' pk=nino.pk %}">
+      <button type="button" class="btn btn-default btn-lg"> Ver Controles Médicos </button> </a>
 </p>
 
         </div>

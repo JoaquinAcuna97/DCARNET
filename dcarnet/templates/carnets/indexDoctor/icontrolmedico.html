@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+  <body>
+    {% block body %}
+    <h1>esto es una prueba</h1>
+    <h1>aca abajo debería ver la info de un control medico</h1>
+
+    {% for control in controlesmedicos %}
+
+    <p> {{control.created_at}} </p>
+    <p> {{control.edad}} </p>
+    <p> {{control.peso}} </p>
+    <p> {{control.talla}}</p>
+    <p> {{control.edad}} </p>
+
+    {% endfor %}
+
+    {% endblock %}
+  </body>
+  {% endblock %}
