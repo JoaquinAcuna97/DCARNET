@@ -1,26 +1,64 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="form-index" >
-        <main role="main">
+{% load static %}
 
-    <h1> Control medico </h1>
-    {{ control_medico.edad }}
-    {{ control_medico.peso }}
-    {{ control_medico.talla }}
-    {{ control_medico.pd }}
-    {{ control_medico.alimentacion }}
-    {{ control_medico.hierro }}
-    {{ control_medico.vit_D }}
-    {{ control_medico.observaciones }}
-    {{ control_medico.presion_arterial }}
-    {{ control_medico.proximo_control }}
-
+<div class="form-index">
+  <main role="main">
+    <div class="container">
+      <div class="row">
+        <div class="container mt-5">
+          <div class="text-center p-4">
+            <h2 class="display-4"> Detalles del control médico </h2>
+          </div>
+          <hr class="my-4">
+          <br>
+          <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:40%;" src="{% static 'img/grafica.png' %}" alt="">
+          <dl>
+            <h3 class="display-5">Fecha: {{ control_medico.fecha_de_creacion}}</h3>
+            <br>
+            <br>
+            <dt class="titulomagui">Edad</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.edad }} años
+            </dd>
+            <dt class="titulomagui">Tallas</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.talla }} cms.
+            </dd>
+            <dt class="titulomagui">Peso</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.peso }} kgs.
+            </dd>
+            <dt class="titulomagui">Pd</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.pd }} cms.
+            </dd>
+            <dt class="titulomagui">Alimentación</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.alimentacion }}
+            </dd>
+            <dt class="titulomagui">Hierro</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.hierro }}
+            </dd>
+            <dt class="titulomagui">Vitamina D</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.vit_D }}
+            </dd>
+            <dt class="titulomagui">Observaciones </dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.observaciones }}
+            </dd>
+            <dt class="titulomagui">Próximo control</dt>
+            <dd>
+              <p class="textmagui"></p> {{ control_medico.proximo_control }}
+            </dd>
+          </dl>
+        </div>
     <a href="{% url 'carnets:control_list' pk=nino.pk %}">
-       <button type="button" class="btn btn-default btn-lg">Ver lista de controles</button>
+      <button type="button" class="btn btn-default btn-lg">Ver lista de controles</button>
     </a>
 </div>
-
-
 
 
 {% endblock %}
