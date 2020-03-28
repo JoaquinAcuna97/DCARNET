@@ -10,18 +10,18 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
-      <div class="text-center p-4">
-        <h1 class="display-1">Mis Niños</h1>
-      </div>
-
-      <a href="{% url 'carnets:crear_nino' %}">
-        <button type="button" class="btn btn-success btn-lg">
-             Agregar nuevo niño
-            <span class="glyphicon glyphicon-plus"></span>
-        </button>
-      </a>
-
-      <hr>
+                    <div class="text-center p-4">
+                                <h1 class="display-1">Mis Niños</h1>
+                      </div>
+                      {% if user.usuario.tipo_usuario == "a" %}
+                       {#solo puede aniadir ninos el tutor#}
+                      <a href="{% url 'carnets:crear_nino' %}">
+                         <button type="button" class="btn btn-success btn-lg">
+                                Agregar nuevo niño
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </a>
+                      {% endif %}
+                      <hr>
 
       <div class="row">
         {% for nino in ninos_list %}
