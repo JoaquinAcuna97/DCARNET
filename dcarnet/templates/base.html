@@ -11,6 +11,7 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
 
   <!-- Nuestro CSS -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -39,7 +40,7 @@
           {% if user.usuario.tipo_usuario == "b" %}
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="">
-              <a class="nav-link disabled" href="{#indexMedico#}">
+              <a class="nav-link" href="{% url 'index' %}">
                 <img src="{% static 'iconos/hospital.png' %}">
                 Inicio Medico
               </a>
@@ -51,7 +52,7 @@
               </a>
             </li>
             <li class=" ">
-              <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+              <a class="nav-link" href="{% url 'carnets:nino_list'%}">
               <img src="{% static 'iconos/familia.png' %}">
                 Mis pacientes
               </a>
@@ -80,13 +81,13 @@
           {#NAVBAR DE FAMILIAR#}
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="">
-              <a class="nav-link disabled" href="{#IndexMadre#}">
+              <a class="nav-link" href="{% url 'index' %}">
                 <img src="{% static 'iconos/hospital.png' %}">
                 Inicio Familiar
               </a>
             </li>
             <li class="">
-              <a class="nav-link" href="{% url 'carnets:nino_list' %}">
+              <a class="nav-link" href="{% url 'carnets:nino_list'%}">
                 <img src="{% static 'iconos/familia.png' %}">
                 Mis niños
               </a>
@@ -101,7 +102,7 @@
 
             <ul class="nav navbar-nav navbar-right ">
             <li class="">
-              <a class="nav-link" href="{% url 'carnets:detail_familiar' user.usuario.pk%}">
+              <a class="nav-link" href="{% url 'carnets:detail_familiar' pk=user.usuario.pk%}">
                 <img src="{% static 'iconos/usuario.png' %}">
                 Mi perfil
               </a>
