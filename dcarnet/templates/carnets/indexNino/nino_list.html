@@ -29,7 +29,7 @@
           <a href="{% url 'carnets:detail_nino' pk=nino.pk %}"  class="card mb-3 shadow-sm custom-card">
 
               {% if nino.foto_perfil %}
-              <img class="bd-placeholder-img card-img-top" style="height: 230px; width: 100%; " src="{{ nino.foto_perfil.url }}"   alt="">
+              <img class="bd-placeholder-img card-img-top" style="height: 225px; width: 100%; " src="{{ nino.foto_perfil.url }}"   alt="">
               {% else %}
               <span class="glyphicon glyphicon-user" style="height: 230px; width: 100%; display: block;"> </span>
               {% endif %}
