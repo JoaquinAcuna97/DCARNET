@@ -4,38 +4,43 @@
 
 {% block content %}
 
-<main class="main">
+<main class="main" class="pb-5">
   <div class="album py-5 bg-light">
     <div class="container">
+
       <div class="text-center p-4">
         <h1 class="display-1">Mis Niños</h1>
       </div>
+
       {% if user.usuario.tipo_usuario == "a" %}
       {#solo puede aniadir ninos el tutor#}
-      <a href="{% url 'carnets:crear_nino' %}">
-        <button type="button" class="btn btn-success btn-lg">
-          Agregar nuevo niño
-          <span class="glyphicon glyphicon-plus"></span> </button>
-      </a>
+            <a href="{% url 'carnets:crear_nino' %}">
+              <button type="button" class="btn btn-success btn-lg">
+                Agregar nuevo niño
+                <span class="glyphicon glyphicon-plus"></span> </button>
+            </a>
       {% endif %}
-      <hr>
+        <hr>
 
-      <div class="row">
+  <div class="row">
         {% for nino in ninos_list %}
 
-        <div class="col-md-4" id="perfil-nino">
-          <a href="{% url 'carnets:detail_nino' pk=nino.pk %}">
-            <div class="card shadow-sm custom-card hvr-grow hvr-glow">
+    <div class="col-md-3" id="perfil-nino">
+          <a href="{% url 'carnets:detail_nino' pk=nino.pk %}"  class="card mb-3 shadow-sm custom-card">
 
               {% if nino.foto_perfil %}
-              <img class="bd-placeholder-img card-img-top" style="height: 225px; width: 225px; display: block;" src="{{ nino.foto_perfil.url }}" alt="">
+              <img class="bd-placeholder-img card-img-top" style="height: 230px; width: 100%; " src="{{ nino.foto_perfil.url }}"   alt="">
               {% else %}
-              <span class="glyphicon glyphicon-user" style="height: 225px; width: 225px; display: block;"></span>
+              <span class="glyphicon glyphicon-user" style="height: 230px; width: 100%; display: block;"> </span>
               {% endif %}
-              <h2 class="m-3"> {{ nino.nombre }} {{ nino.apellido }} </h2>
+              <div class="card-body">
+                        <h2 class="m-2"> {{ nino.nombre }} {{ nino.apellido }} </h2>
+              </div>
+
+              </a>
             </div>
-          </a>
-        </div>
+
+
 
         {% empty %}
         <li>
@@ -48,4 +53,3 @@
 
 </main>
   {% endblock %}
-
