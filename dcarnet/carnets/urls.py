@@ -6,6 +6,7 @@ from . import views
 app_name = "carnets"
 
 urlpatterns = [
+    url(r"^api-data/", views.get_data_chart.as_view(), name='api-data'),
     url(r"^autenticacion/", include("autenticacion.urls")),
 
     ##Medico

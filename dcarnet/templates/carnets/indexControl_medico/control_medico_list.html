@@ -4,6 +4,29 @@
 
 
 <main role="main">
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+      <script>
+     jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+
+        var boxHeight = $(".clickable-row").height();
+        $(".clickable-row").mouseenter(function(){
+            $(this).animate({
+                height: boxHeight*1.1
+            });
+            $(this).css({border: '0 solid #79b956'}).animate({
+                    borderWidth: 4
+            }, 1);
+        }).mouseleave(function(){
+            $(this).animate({
+                height: boxHeight,
+                borderWidth: 0
+            });
+        });
+    });
+    </script>
   <div class="form-index">
     <div class="container">
 
@@ -41,7 +64,7 @@
         <tbody>
           {% for  control_medico in Control_medico_list %}
 
-          <tr>
+          <tr class='clickable-row' data-href="{% url 'carnets:detail_Control_medico' pk=control_medico.pk %}">
             <td scope="row"><span> {{ control_medico.fecha_de_creacion }} </span></td>
             <td><span> {{ control_medico.edad }}</span></td>
             <td><span> {{ control_medico.peso }} </span></td>
@@ -53,6 +76,7 @@
                 </div>
               </span></td>
           </tr>
+
           {% empty %}
           <tr>
             <td scope="row"><span> No hay controles médicos </span></td>

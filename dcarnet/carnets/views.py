@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from . import models
 from autenticacion import models as authmodels
 from django.urls import reverse
@@ -11,7 +11,9 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.http import Http404
 from django import forms
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
 # update and create views
 
 
@@ -287,3 +289,17 @@ class Control_medico_List_View(ListView):
         context["nino"] = nino
         context["Control_medico_list"] = carnet.control_medico_set.all()
         return context
+
+
+class get_data_chart(APIView):
+
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        data = {
+            'sales 01':100,
+            'sales 02': 10,
+            'sales 03': 10,
+        }
+        return Response(data)
