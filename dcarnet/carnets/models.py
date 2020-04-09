@@ -96,6 +96,12 @@ class Control_medico(models.Model):
     def get_absolute_url(self):
         return reverse("carnets:detail_Control_medico", kwargs={"pk": self.pk})
 
+    def get_mes_creacion(self):
+        months = (
+        "Enero", "Febrero", "Marzo", "Abri", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre",
+        "Diciembre")
+        mes = self.fecha_de_creacion.month
+        return months[mes- 1]
 
 
 

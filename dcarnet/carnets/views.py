@@ -296,10 +296,17 @@ class get_data_chart(APIView):
     authentication_classes = []
     permission_classes = []
 
-    def get(self, request, format=None):
+    def get(self, request, *args, **kwargs):
+        nino = models.Nino.objects.get(pk=self.kwargs.get('pk'))
+        carnet = models.Carnet.objects.get(pk=nino.carnet_id)
+        controles_medicos = carnet.control_medico_set.all().order_by('fecha_de_creacion')
+        labels = []
+        default_items = []
+        for control in controles_medicos:
+            labels.append(control.get_mes_creacion())
+            default_items.append(control.peso)
         data = {
-            'sales 01':100,
-            'sales 02': 10,
-            'sales 03': 10,
+            'default': default_items,
+            'labels': labels,
         }
         return Response(data)
