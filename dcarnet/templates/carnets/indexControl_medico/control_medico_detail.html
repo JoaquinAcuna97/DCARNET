@@ -2,21 +2,18 @@
 {% block content %}
 {% load static %}
 
-<div class="form-index" url-endpoint="">
+<div class="form-index">
   <main role="main">
     <div class="container">
-      <div class="">
-        <div class="container mt-5 row">
+      <div class="row">
+        <div class="container mt-5">
           <div class="text-center p-4">
             <h2 class="display-4"> Detalles del control médico </h2>
           </div>
           <hr class="my-4">
           <br>
-          <div class="col-8">
-
-          </div>
-<div class="col-4" id="contenido-controlmedico" >
-    <dl>
+          <img class="img-fluid img-thumbnail" style="float:right; margin:20px; width:40%;" src="{% static 'img/grafica.png' %}" alt="">
+          <dl>
             <h3 class="display-5">Fecha: {{ control_medico.fecha_de_creacion}}</h3>
             <br>
             <br>
@@ -57,7 +54,6 @@
               <p class="textmagui"></p> {{ control_medico.proximo_control }}
             </dd>
           </dl>
-</div>
         </div>
 
       
@@ -66,8 +62,6 @@
       <button type="button" class="btn btn-default btn-lg">Ver lista de controles</button>
     </a>
 </div>
-
-
 
 
 {% endblock %}
