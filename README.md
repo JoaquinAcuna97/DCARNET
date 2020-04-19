@@ -12,7 +12,10 @@ Clone el repositorio git@github.com:JoaquinAcuna97/DCARNET.git
 
 Abra su consola CMD con ctrl + r, navegue hasta el archivo manage.py y ejecute
 
-Python manage.py runserver
+pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
 
 Vaya a la IP a la que apuntan los servidores.
 
