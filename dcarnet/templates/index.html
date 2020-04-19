@@ -5,41 +5,37 @@
 <main class="main">
   <div class="container">
     <div class="form-index" >
-      <div class="row">
-        <h1>DCARNET</h1>
-      </div>
+
       <div class="row">
 {#Doctor logueado aqui #}
 
         {% if user.usuario.tipo_usuario == "b" %}
+                         <div class="col-xl-40 col-lg-20">
+                           <div class="card shadow mb-4">
+                               <div class="card-body" >
+                                 <h2>Bienvenido a DCARNET Doctor {{ user.username }}!
+                                 {% if user.usuario.foto_perfil %}
+                                     <img style='border-radius: 50%; width: 20%' alt="avatar"  src="{{ user.usuario.foto_perfil.url }}"  >
+                                  {% else %}
+                                     <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                                  {% endif %}
 
-        <h2>Bienvenido a DCARNET Doctor {{ user.username }}!</h2>
-        <br>
-          {% comment %}
-                <img style='border-radius: 50%;' src="{{ user.usuario.foto_perfil.url }}" width="300" height="300" class="d-inline-block align-top" alt="">
-          {% endcomment %}
-        <p>DCarné es una web que le permitirá actualizar el carné
-          de sus <b>Pacientes</b> para que los <b>Familiares</b> sepan la salud de sus niñ@s desde cualquier lugar y dispositivo.
-        </p>
-
-                <div class="col-xl-40 col-lg-20">
-                  <div class="card shadow mb-4">
-                      <div class="card-body" >
-                        <h2>Bienvenido a DCARNET Doctor {{ user.username }}!
-
-                        {% if user.usuario.foto_perfil %}
-                            <img style='border-radius: 50%; width: 20%' alt="avatar"  src="{{ user.usuario.foto_perfil.url }}"  >
-                         {% else %}
-                            <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-                         {% endif %}
-
-                    </div>
-                  </div>
-
-                  <div class="container-fluid">
-
-                              <div class="card-body">
-                                  <div class="card border-left-info shadow h-100 py-2">
+                             </div>
+                           </div>
+                           <div class="card shadow mb-4">
+                             <!-- Card Header - Dropdown -->
+                             <h6>
+                               Sobre DCarné </h6>
+                             <!-- Card Body -->
+                             <div class="card-body">
+                               <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                               <p>DCarnet es una web que le permitirá consultar el carné
+                                 de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
+                               </p>
+                               </div>
+                             </div>
+                           </div>
+                                  <div class="card shadow mb-4"">
                                     <div class="card-body">
                                  <div class="text-xs font-weight-bold  text-uppercase mb-1">Novedades en DCARNET</div>
                               <p>
@@ -48,61 +44,40 @@
                               </div>
                             </div>
 
-                </div>
-
-
-
-
-
-
         {% elif user.usuario.tipo_usuario == "a" %}
+                    <div class="col-xl-40 col-lg-20">
+                      <div class="card shadow mb-4">
+                          <div class="card-body" >
+                            <h2>Bienvenido a DCARNET Familiar {{ user.username }}!
+                            {% if user.usuario.foto_perfil %}
+                                <img style='border-radius: 50%; width: 20%' alt="avatar"  src="{{ user.usuario.foto_perfil.url }}"  >
+                             {% else %}
+                                <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+                             {% endif %}
 
-
-
-        <div class="col-xl-40 col-lg-20">
-          <div class="card shadow mb-4">
-              <div class="card-body" >
-                <h2>Bienvenido a DCARNET Familiar {{ user.username }}!
-
-                {% if user.usuario.foto_perfil %}
-                    <img style='border-radius: 50%; width: 20%' alt="avatar"  src="{{ user.usuario.foto_perfil.url }}"  >
-                 {% else %}
-                    <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-                 {% endif %}
-
-            </div>
-          </div>
-
-          <div class="container-fluid">
-
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-
-
-                          <!-- Card Body -->
-                          <div class="card-body">
-                            <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                            <p>DCarné es una web que le permitirá consultar el carné
-                              de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
-                            </p>
-                            </div>
+                        </div>
+                      </div>
+                      <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <h6>
+                          Sobre DCarné </h6>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                          <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                          <p>DCarnet es una web que le permitirá consultar el carné
+                            de salud de sus <b>Niñ@s</b> desde cualquier lugar y dispositivo.
+                          </p>
                           </div>
                         </div>
                       </div>
-
-                      <div class="card-body">
-                          <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                         <div class="text-xs font-weight-bold  text-uppercase mb-1">Novedades en DCARNET</div>
-                      <p>
-                        </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-        </div>
+                             <div class="card shadow mb-4"">
+                               <div class="card-body">
+                            <div class="text-xs font-weight-bold  text-uppercase mb-1">Novedades en DCARNET</div>
+                         <p>
+                           </p>
+                           </div>
+                         </div>
+                       </div>
 
         {% else %}
 
@@ -224,7 +199,7 @@
                               </div>
                             </div>
                             <div class="col-auto">
-                              <i class="fas fa-comments fa-2x text-gray-300"></i>
+
                             </div>
                           </div>
                         </div>
@@ -278,9 +253,8 @@
         </div>
                 </div>
               </div>
-            </div>
-      </div>
-    </div>
+          
+
 
 </main>
 
@@ -288,30 +262,4 @@
 
 
 
-
-
-{#Comentarios y gias aqui #}
-{% comment %}
-
-
-El codigo esta dividido basicamente en dos niveles
-
-Header el cual se personaliza para los dos tipos de Usuario
-
-Main que contendra titulos antes del
-
-<body>
-  Aca es donde se extenderan los modelos de Django
-
-  que correspondera a cada pantalla de Usuario
-
-</body>
-
-<!--Codigo del search en caso que se nesesite  <div>
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
- </div> -->
-{% endcomment %}
 {% endblock %}
