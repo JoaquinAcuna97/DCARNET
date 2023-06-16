@@ -117,9 +117,7 @@ class PerfilNinoView(DetailView):
         try:
             nino = get_object_or_404(models.Nino, pk=kwargs["pk"])
             context = {"nino": nino}
-            return render(
-                request, "carnets/indexNino/nino_detail.html", context
-            )
+            return render(request, "carnets/indexNino/nino_detail.html", context)
         except Http404:
             # redirect is here
             from django.shortcuts import redirect
@@ -138,9 +136,10 @@ class NinoListView(ListView):
     model = models.Nino
     paginate_by = 100  # if pagination is desired
     template_name = "carnets/indexNino/nino_list.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['ninos_list'] = models.Nino.objects.all()
+        context["ninos_list"] = models.Nino.objects.all()
         return context
 
 
@@ -155,6 +154,7 @@ class NinoCreate(CreateView):
         "lugar_de_nacimiento",
         "servicio_de_salud",
         "medico_asignado",
+        "foto_perfil",
     ]
 
     def form_valid(self, form):
@@ -174,7 +174,9 @@ class PerfilControl_medicoView(DetailView):
             control_medico = get_object_or_404(models.Control_medico, pk=kwargs["pk"])
             context = {"control_medico": control_medico}
             return render(
-                request, "carnets/indexControl_medico/control_medico_detail.html", context
+                request,
+                "carnets/indexControl_medico/control_medico_detail.html",
+                context,
             )
         except Http404:
             # redirect is here

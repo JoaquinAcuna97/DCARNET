@@ -89,6 +89,7 @@ class Carnet(models.Model):
 
 
 class Nino(Persona):
+    foto_perfil = models.ImageField()
     servicio_de_salud = models.CharField(max_length=200)
     carnet = models.OneToOneField(
         Carnet, blank=True, null=True, on_delete=models.CASCADE
@@ -113,7 +114,7 @@ class Agenda(models.Model):
 
 
 class Tutor(Persona):
-    hijos = models.ManyToManyField(Nino, blank=True, null=True, through="Tipo_de_tutor")
+    hijos = models.ManyToManyField(Nino, through="Tipo_de_tutor")
     agenda = models.ForeignKey(Agenda, blank=True, null=True, on_delete=models.SET_NULL)
     usuario = models.OneToOneField(authmodels.Usuario, on_delete=models.CASCADE)
 
